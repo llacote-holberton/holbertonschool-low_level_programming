@@ -1,9 +1,10 @@
 #include <stdio.h>
 
-/*
+/**
  * main - Displays a simple static text.
  *
- * Description: SAME AS ABOVE, SERIOUSLY.
+ * Description: displays a fixed string.
+ *
  * Return: Always 0 (Success)
  */
 int main(void)
