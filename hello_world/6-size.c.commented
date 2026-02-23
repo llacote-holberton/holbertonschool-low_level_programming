@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+/**
+ * main - Displays a simple static text.
+ *
+ * Description: displays a fixed string using printf.
+ *
+ * Return: Always 0 (Success)
+ */
+int main(void)
+{
+	/* Defining variables of each type */
+	/*
+	 * char a_char;
+	 * int  an_int;
+	 * long int a_long_int; Technically the 'int' is not required
+	 * float a_float;
+	 * long long a_very_long_int; BEWARE: unsupported in standard gnu89/C90.
+	 * ACTUALLY WE CANNOT USE VARIABLES BECAUSE the byte size changes
+	 *   depending on architecture YET the printfs expect a "static" format
+	 *   (there is probably a way to target different formats depending 
+	 *   on system architecture but I don't know how to get that info).
+	 *   => For now we can just directly put the type name in size_of
+	 *   AND use 'long unsigned' for both architectures.
+	 */
+
+	/* Needs to use specifically ul for "unsigned long" because
+	 * 'zu' is a more recent format which doesn't work on standard gnu89.
+	 */
+	/*
+	 * THIS works with "regular Holberton" compilation, but does NOT
+	 *   when using the -m32 option.
+	 *  printf("Size of a char: %lu byte(s)\n",     sizeof(a_char));
+	 * On -m32 gives following error
+	 *   warning: format '%lu' expects argument of type 'long unsigned int', 
+	 *   but argument 2 has type 'unsigned int' [-Wformat=]
+	 * => On -m32 needs to use only %u formatter.
+	 */
+	/*
+	 * printf("Size of an int: %u byte(s)\n",     sizeof(an_int));
+	 * printf("Size of a long int: %u byte(s)\n", sizeof(a_long_int));
+	 * printf("Size of a long long int: %u byte(s)\n", sizeof(long long int));
+	 * printf("Size of a float: %u byte(s)\n", sizeof(a_float));
+	 */
+	/*
+	 * In the end we are just not supposed to take care of those compilation problems
+	 * which is why the given command redirects errors to a temporary file 
+	 *   so we can have something that runs.
+	 * => We can use 'lu' formatter for both 32-bits and 64-bits as a result
+	 *    although I really don't understand why. xd
+	 */
+	printf("Size of a char: %lu byte(s)\n",    sizeof(char));
+	printf("Size of an int: %lu byte(s)\n",     sizeof(int));
+	printf("Size of a long int: %lu byte(s)\n", sizeof(long int));
+	printf("Size of a long long int: %lu byte(s)\n", sizeof(long long int));
+	printf("Size of a float: %lu byte(s)\n", sizeof(float));
+
+	return (0);
+
+}
