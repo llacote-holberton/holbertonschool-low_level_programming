@@ -9,18 +9,14 @@
 int main(void)
 {
 	int r;
-
-	/* @note Should be 1 */
-	r = _abs(-1);
-	printf("%d\n", r);
+	/* @note Should be 8 */
+	print_last_digit(98);
 	/* @note Should be 0 */
-	r = _abs(0);
-	printf("%d\n", r);
-	/* @note Should be 1 */
-	r = _abs(1);
-	printf("%d\n", r);
-	/* @note Should be 98 */
-	r = _abs(-98);
-	printf("%d\n", r);
+	print_last_digit(0);
+	/* @note Should be -4 */
+	r = print_last_digit(-1024);
+	/* @note Displays '44' ??? (48 + -4) */
+	_putchar('0' + r);
+	_putchar('\n');
 	return (0);
 }

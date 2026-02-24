@@ -22,4 +22,7 @@ int print_sign(int n);
 /* Function for now in 6-abs.c*/
 int _abs(int n);
 
+/* Function for now in 7-last_digit.c*/
+int print_last_digit(int);
+
 #endif
