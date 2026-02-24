@@ -1,6 +1,4 @@
-#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 /**
  * main - prints nearly whole lowercase alphabet EXCEPT 'q' and 'e'.
