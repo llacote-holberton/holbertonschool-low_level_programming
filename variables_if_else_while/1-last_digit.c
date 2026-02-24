@@ -17,7 +17,7 @@ int main(void)
 	n = rand() - RAND_MAX / 2;
 
 	/* @note needs to get "absolute value" to stay within exercise's frame. */
-	last_digit = abs(n % 10);
+	last_digit = n % 10;
 	if (last_digit == 0)
 		text = "and is 0";
 	else if (last_digit <= 5)
