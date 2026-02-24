@@ -1,18 +1,6 @@
 #include "main.h"
 
 /**
- * main - Prints alphabet without using standard library.
- * Description: prints alphabet using nested custom functions.
- *   in the list of files to aggregate when running compilation.
- * Return: Always 0.
- */
-int main(void)
-{
-	print_alphabet();
-	return (0);
-}
-
-/**
  * print_alphabet - prints a-z letters in order.
  * Description: uses custom unit function to print
  *   a-z letters set in alphabetical order, followed
