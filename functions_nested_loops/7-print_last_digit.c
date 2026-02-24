@@ -22,3 +22,14 @@ int print_last_digit(int n)
 	return (last_digit);
 }
 
+/**
+ * _abs - returns absolute value of an integer.
+ * @n: Random signed integer number.
+ * Description: exploits the sign of a given number.
+ * Return: ternary integer (-1, 0, 1).
+ *
+ */
+int _abs(int n)
+{
+	return ((n >= 0) ? n : n * (-1));
+}
