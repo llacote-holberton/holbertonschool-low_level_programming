@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
@@ -9,29 +10,17 @@ int main(void)
 {
 	int r;
 
-	/* @note Should be + ( 98 > 0) */
-	r = print_sign(98);
-	_putchar(',');
-	_putchar(' ');
-	_putchar(r + '0');
-	_putchar('\n');
-	/* @note Should be 0 (  0 ==0) */
-	r = print_sign(0);
-	_putchar(',');
-	_putchar(' ');
-	_putchar(r + '0');
-	_putchar('\n');
-	/* @note Should be + (255 > 0) */
-	r = print_sign(0xff);
-	_putchar(',');
-	_putchar(' ');
-	_putchar(r + '0');
-	_putchar('\n');
-	/* @note Should be - ( -1 < 0) */
-	r = print_sign(-1);
-	_putchar(',');
-	_putchar(' ');
-	_putchar(r + '0');
-	_putchar('\n');
+	/* @note Should be 1 */
+	r = _abs(-1);
+	printf("%d\n", r);
+	/* @note Should be 0 */
+	r = _abs(0);
+	printf("%d\n", r);
+	/* @note Should be 1 */
+	r = _abs(1);
+	printf("%d\n", r);
+	/* @note Should be 98 */
+	r = _abs(-98);
+	printf("%d\n", r);
 	return (0);
 }
