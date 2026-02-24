@@ -9,25 +9,52 @@
  */
 int print_sign(int n)
 {
-
-	/**
-	 * Method 1, works but basic and verbose
+	/*
+	 * Method 2 which uses a switch (my initial goal)
+	 *   but with a twist which I honestly wouldn't have thought alone
 	 */
-	if (n > 0)
+	int eval_result;
+	/*
+	 * @note this is the nice trick to affect a result variable in a oneliner.
+	 * BECAUSE we exactly want it to have either -1, 0 or 1
+	 *   (otherwise this wouldn't work).
+	 * Basically we make a substraction, on the fly,
+	 *   of the result of two separate evaluations which each
+	 *   will return either 1 (true) or 0 (false).
+	 * Order of evaluations and choice of operator are
+	 *   intimately correlated if we want to return 1 for positive numbers.
+	 */
+	eval_result = (n > 0) - (n < 0);
+	switch (eval_result)
 	{
-		_putchar('+');
-		return (1);
+		case 1:
+			_putchar('+');
+			break;
+		case 0:
+			_putchar('0');
+			break;
+		case -1:
+			_putchar('-');
 	}
-	else if (n == 0)
-	{
-		_putchar('0');
-		return (0);
-	}
-	else
-	{
-		_putchar('-');
-		return (-1);
-	}
-
-
+	return (eval_result);
 }
+
+
+/*
+ * Method 1, works but basic and verbose
+ * if (n > 0)
+ * {
+ * putchar('+');
+ * return (1);
+ * }
+ * else if (n == 0)
+ * {
+ * _putchar('0');
+ * return (0);
+ * }
+ * else
+ * {
+ * _putchar('-');
+ * return (-1);
+ * }
+ */
