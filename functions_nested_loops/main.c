@@ -8,17 +8,29 @@
 int main(void)
 {
 	int r;
-	/* @note Should be 1 (true), ASCII value 72. */
-	r = _isalpha('H');
+
+	/* @note Should be + ( 98 > 0) */
+	r = print_sign(98);
+	_putchar(',');
+	_putchar(' ');
 	_putchar(r + '0');
-	/* @note Should be 1 (true), ASCII char 111. */
-	r = _isalpha('o');
+	_putchar('\n');
+	/* @note Should be 0 (  0 ==0) */
+	r = print_sign(0);
+	_putchar(',');
+	_putchar(' ');
 	_putchar(r + '0');
-	/* @note Should be 1 (true), ASCII letter l. */
-	r = _isalpha(108);
+	_putchar('\n');
+	/* @note Should be + (255 > 0) */
+	r = print_sign(0xff);
+	_putchar(',');
+	_putchar(' ');
 	_putchar(r + '0');
-	/* @note Should be 0 (false), ASCII value 59. */
-	r = _isalpha(';');
+	_putchar('\n');
+	/* @note Should be - ( -1 < 0) */
+	r = print_sign(-1);
+	_putchar(',');
+	_putchar(' ');
 	_putchar(r + '0');
 	_putchar('\n');
 	return (0);
