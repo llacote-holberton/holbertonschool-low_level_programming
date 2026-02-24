@@ -1,6 +1,5 @@
 #ifndef MAIN_H
 #define MAIN_H
-#endif
 
 /* Function provided externally */
 int _putchar(char c);
@@ -10,3 +9,5 @@ void print_alphabet(void);
 
 /* Function for now in 2-alphabet_x10.c */
 void print_alphabet_x10(void);
+
+#endif
