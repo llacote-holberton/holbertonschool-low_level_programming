@@ -3,8 +3,9 @@
 #include <stdio.h>
 
 /**
- * main - says whether stored number is positive or negative.
- * Description: determines the "signed range" of a n variable.
+ * main - displays the last digit of a random signed integer.
+ * Description: grabs the last digit of a random signed integer
+ *   and displays a textual evaluation of it compared to O, 5 and 6.
  * Return: always 0 whatever resulting output is.
  */
 int main(void)
