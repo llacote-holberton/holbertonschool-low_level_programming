@@ -5,7 +5,7 @@
  * Description: prints characters from [0-9] set
  *   in ascending order as a single aggregate string
  *   EXCLUDING '2' and '4' (because why not ;)).
- * Return: boolean (1 = success)
+ * Return: void
  */
 void print_most_numbers(void)
 {
