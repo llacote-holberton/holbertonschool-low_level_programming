@@ -28,4 +28,7 @@ void print_line(int n);
 /* Function defined in 7-print_diagonal.c */
 void print_diagonal(int n);
 
+/* Function defined in 8-print_square.c */
+void print_square(int size);
+
 #endif
