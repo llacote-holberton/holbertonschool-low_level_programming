@@ -16,7 +16,8 @@ int mul(int a, int b);
 /* Function defined in 3-print_numbers.c */
 void print_numbers(void);
 
-
+/* Function defined in 4-print_most_numbers.c */
+void print_most_numbers(void);
 
 
 #endif
