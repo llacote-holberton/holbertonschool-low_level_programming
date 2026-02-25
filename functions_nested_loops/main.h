@@ -33,5 +33,7 @@ void times_table(void);
 /* Extra functions to structure 9-times_table */
 void print_number(int number);
 
+/* Function for now in 10-add.c */
+int add(int, int);
 
 #endif

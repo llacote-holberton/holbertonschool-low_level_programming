@@ -8,7 +8,10 @@
  */
 int main(void)
 {
-	/* Should print 10 lines of 10 numbers */
-	times_table();
+	int n;
+
+	/* Should be 98 */
+	n = add(89, 9);
+	printf("%d\n", n);
 	return (0);
 }
