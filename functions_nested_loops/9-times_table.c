@@ -34,8 +34,10 @@ void times_table(void)
 	limit = 9;
 	for (base = 0; base <= limit; base++)
 	{
+		_putchar('0');
+		_putchar(',');
 		/** For now we write all in, we'll report later in functions */
-		for (multiplier = 0; multiplier < 10; multiplier++)
+		for (multiplier = 1; multiplier < 10; multiplier++)
 		{
 			result = (base == 0 || multiplier == 0) ? 0 : base * multiplier;
 			print_number(result);
