@@ -19,5 +19,11 @@ void print_numbers(void);
 /* Function defined in 4-print_most_numbers.c */
 void print_most_numbers(void);
 
+/* Function defined in 5-more_numbers.c */
+void more_numbers(void);
+
+
+
+
 
 #endif
