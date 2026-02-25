@@ -22,8 +22,8 @@ void print_most_numbers(void);
 /* Function defined in 5-more_numbers.c */
 void more_numbers(void);
 
-
-
+/* Function defined in 6èprint_line */
+void print_line(int n);
 
 
 #endif
