@@ -28,4 +28,10 @@ int print_last_digit(int);
 /* Function for now in 8-24_hours.c */
 void jack_bauer(void);
 
+/* Function for now in 9-times_table.c */
+void times_table(void);
+/* Extra functions to structure 9-times_table */
+void print_number(int number);
+
+
 #endif

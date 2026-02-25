@@ -8,7 +8,7 @@
  */
 int main(void)
 {
-	/* Should print 60*24 = 1440 lines */
-	jack_bauer();
+	/* Should print 10 lines of 10 numbers */
+	times_table();
 	return (0);
 }
