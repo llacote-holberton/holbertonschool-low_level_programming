@@ -25,4 +25,7 @@ int _abs(int n);
 /* Function for now in 7-last_digit.c*/
 int print_last_digit(int);
 
+/* Function for now in 8-24_hours.c */
+void jack_bauer(void);
+
 #endif

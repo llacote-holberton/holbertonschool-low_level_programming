@@ -8,15 +8,7 @@
  */
 int main(void)
 {
-	int r;
-	/* @note Should be 8 */
-	print_last_digit(98);
-	/* @note Should be 0 */
-	print_last_digit(0);
-	/* @note Should be -4 */
-	r = print_last_digit(-1024);
-	/* @note Displays '44' ??? (48 + -4) */
-	_putchar('0' + r);
-	_putchar('\n');
+	/* Should print 60*24 = 1440 lines */
+	jack_bauer();
 	return (0);
 }
