@@ -34,16 +34,26 @@ void times_table(void)
 	limit = 9;
 	for (base = 0; base <= limit; base++)
 	{
+		/*
+		 * @essential! Only way to have "conditional print of separator"
+		 *   without hardcoding the condition is
+		 *   NOT "print separator after number except for last of line"
+		 *   BUT "print separator BEFORE number EXCEPT for the FIRST of line."
+		 */
 		_putchar('0');
-		_putchar(',');
+		/* _putchar(','); */
 		/** For now we write all in, we'll report later in functions */
 		for (multiplier = 1; multiplier < 10; multiplier++)
 		{
 			result = (base == 0 || multiplier == 0) ? 0 : base * multiplier;
+			if (multiplier > 0)
+				_putchar(',');
 			print_number(result);
 			/* @note very brittle, hardcodes the function limit!!*/
-			if (multiplier != limit)
-				_putchar(',');
+			/*
+			 * if (multiplier != limit)
+			 * _putchar(',');
+			 */
 		}
 		_putchar('\n');
 	}
