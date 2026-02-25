@@ -36,4 +36,7 @@ void print_number(int number);
 /* Function for now in 10-add.c */
 int add(int, int);
 
+/* Function for now in 11-print_to_98 */
+void print_to_98(int n);
+
 #endif
