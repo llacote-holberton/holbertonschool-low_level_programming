@@ -48,6 +48,7 @@ void fizz_buzz(void)
 		if (current < end)
 			printf(" ");
 	}
+	printf("\n");
 }
 
 
