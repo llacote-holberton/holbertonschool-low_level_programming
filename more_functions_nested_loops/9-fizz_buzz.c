@@ -46,7 +46,6 @@ void fizz_buzz(void)
 		else
 			printf("%d ", current);
 	}
-	printf("\n");
 }
 
 
