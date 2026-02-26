@@ -45,7 +45,8 @@ void fizz_buzz(void)
 			printf("Fizz");
 		else
 			printf("%d", current);
-		printf(" ");
+		if (current < end)
+			printf(" ");
 	}
 }
 
