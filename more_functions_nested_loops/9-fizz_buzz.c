@@ -51,7 +51,6 @@ void fizz_buzz(void)
 	printf("\n");
 }
 
-
 /**
  * main - check the code
  *
@@ -59,23 +58,32 @@ void fizz_buzz(void)
  */
 int main(void)
 {
-	/* Original version */
 	/*fizz_buzz();*/
 
 	/*
-	 * After trying, thanks to printf managing "empty strings"
-	 *   we can go for a much more concise writing.
-	 * Although this time I don't try to make
-	 *   something "industrializable".
+	 * Thanks to ChatGPT for making me discover the fact
+	 *   that printf returns number of printed characters.
+	 * Giving a precious information to use to know
+	 *   whether we should print the number itself
+	 *   without re-evaluating its divisions.
+	 * Not sure it's actually much more efficient
+	 *   in performance though.
+	 *
 	 */
 	int current;
+	int printed;
 
 	for (current = 1; current <= 100; current++)
 	{
-		printf((current % 3 == 0) ? "Fizz" : "");
-		printf((current % 5 == 0) ? "Buzz" : "");
-		/* No better way to do? */
-		if (current % 3 != 0 && current % 5 != 0)
+		/*
+		 * FUN FACT: printed (logically) keeps existing
+		 *   at same address for whole loop so it NEEDS
+		 *   to be reset at each loop start (duh me).
+		 */
+		printed = 0;
+		printed += printf((current % 3 == 0) ? "Fizz" : "");
+		printed += printf((current % 5 == 0) ? "Buzz" : "");
+		if (printed == 0)
 			printf("%d", current);
 		printf((current != 100) ? " " : "");
 	}
@@ -83,3 +91,24 @@ int main(void)
 
 	return (0);
 }
+
+/*
+ * After trying, thanks to printf managing "empty strings"
+ *   we can go for a much more concise writing.
+ * Although this time I don't try to make
+ *   something "industrializable".
+ */
+/*
+ * Method without ultimate trick from ChatGPT
+ * int current;
+ *
+ * for (current = 1; current <= 100; current++)
+ * {
+ * printf((current % 3 == 0) ? "Fizz" : "");
+ * printf((current % 5 == 0) ? "Buzz" : "");
+ *
+ * if (current % 3 != 0 && current % 5 != 0)
+ * printf("%d", current);
+ * printf((current != 100) ? " " : "");
+ * }
+ */
