@@ -38,13 +38,14 @@ void fizz_buzz(void)
 		 *   of the unit cases 3 (Fizz) and 5 (Buzz).
 		 */
 		if (multiple_of_3 && multiple_of_5)
-			printf("FizzBuzz ");
+			printf("FizzBuzz");
 		else if (multiple_of_5)
-			printf("Buzz ");
+			printf("Buzz");
 		else if (multiple_of_3)
-			printf("Fizz ");
+			printf("Fizz");
 		else
-			printf("%d ", current);
+			printf("%d", current);
+		printf(" ");
 	}
 }
 
