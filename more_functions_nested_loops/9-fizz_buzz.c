@@ -59,7 +59,27 @@ void fizz_buzz(void)
  */
 int main(void)
 {
-	fizz_buzz();
+	/* Original version */
+	/*fizz_buzz();*/
+
+	/*
+	 * After trying, thanks to printf managing "empty strings"
+	 *   we can go for a much more concise writing.
+	 * Although this time I don't try to make
+	 *   something "industrializable".
+	 */
+	int current;
+
+	for (current = 1; current <= 100; current++)
+	{
+		printf((current % 3 == 0) ? "Fizz" : "");
+		printf((current % 5 == 0) ? "Buzz" : "");
+		/* No better way to do? */
+		if (current % 3 != 0 && current % 5 != 0)
+			printf("%d", current);
+		printf((current != 100) ? " " : "");
+	}
+	printf("\n");
 
 	return (0);
 }
