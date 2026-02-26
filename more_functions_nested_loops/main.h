@@ -33,4 +33,7 @@ void print_square(int size);
 
 /* Functions defined to structure 9-fizz_buzz.c logic */
 
+/* Function defined in 10-print_triangle.c */
+void print_triangle(int size);
+
 #endif
