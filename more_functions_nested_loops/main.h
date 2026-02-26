@@ -31,4 +31,6 @@ void print_diagonal(int n);
 /* Function defined in 8-print_square.c */
 void print_square(int size);
 
+/* Functions defined to structure 9-fizz_buzz.c logic */
+
 #endif
