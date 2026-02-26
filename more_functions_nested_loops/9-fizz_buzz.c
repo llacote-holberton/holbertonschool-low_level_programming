@@ -20,7 +20,7 @@ void fizz_buzz(void)
 
 	start = 1;
 	end = 100;
-	for (current = start; current < end; current++)
+	for (current = start; current <= end; current++)
 	{
 		/* @note could use chained ternaries but hard to read */
 		int multiple_of_3;
