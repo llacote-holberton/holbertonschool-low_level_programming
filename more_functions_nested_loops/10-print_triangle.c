@@ -12,37 +12,31 @@ void print_triangle(int size)
 {
 	if (size > 0)
 	{
-		/*
-		 * for (line = 1; line <= size; line++)
-		 * {
-		 * for (spacing = size; spacing < (line - 1); spacing--)
-		 * _putchar(' ');
-		 * for (spacing = 0; spacing < line; spacing++)
-		 * _putchar('#');
-		 * _putchar('\n');
-		 * }
-		 */
-		/* This seems the case where a decrement is useful*/
+
 		int line;
 		int spacing;
 		int pixels;
 		/*
-		 * Went for do while at first with inner for but ended up
-		 *   with reverse diagonal... So back to basics which work.
+		 * Spacing + Pixels must equal size since
+		 *   we print triangle "in a square".
+		 * SO if we start printing spaces
+		 *   AND increment instead of decrement
+		 * We can directly deduce a "limit"
+		 *   to use to print the '#'.
+		 * For line 1 of 10 must have 1 ending #.
+		 * For line 4 of 10 must have 4 ending #.
+		 * So pixels = line "number".
+		 * So spacing = size - line number;
 		 */
-		line = size;
+		line = 1;
 		do {
-			spacing = line - 1;
-			/* Needs to compensate the previous "offset". */
-			pixels = size - line + 1;
-
-			for (; spacing > 0; spacing--)
-				_putchar(' ');
-			for (; pixels > 0; pixels--)
+			for (spacing = 1 ; spacing <= size - line; spacing++)
+				_putchar('.');
+			for (pixels = 1; pixels <= line; pixels++)
 				_putchar('#');
 			_putchar('\n');
-			--line;
-		} while (line > 0);
+			line++;
+		} while (line <= size);
 	}
 	else
 		_putchar('\n');
