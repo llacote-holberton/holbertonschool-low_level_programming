@@ -123,6 +123,52 @@ bool is_menu_choice_valid(int choice)
 }
 
 /**
+ * operate - Execute an arithmetic operation on 2 numbers.
+ * @user_choice: int
+ * Description: grabs
+ * Return: int (0 = success)
+ */
+int operate(int user_choice)
+{
+	/*
+	 * @note would have normally called them n1 and n2
+	 *   but since we display "A" and "B"...
+	 */
+	int A;
+	int B;
+	int valid_A;
+	int valid_B;
+	int result;
+
+	printf("A: ");
+	valid_A = scanf("%d", &A);
+	printf("B: ");
+	valid_B = scanf("%d", &B);
+	if (valid_A > 0 && valid_B > 0)
+	{
+		switch (user_choice)
+		{
+			case 1: /* "Add" */
+				result = A + B;
+				break;
+			case 2: /* "Substract" */
+				result = A - B;
+				break;
+			case 3: /* "Multiply" */
+				result = A * B;
+				break;
+			case 4: /* "Divide" */
+				result = (B != 0) ? A / B : 0;
+				break;
+		}
+		printf("Result: %d", result);
+	}
+	return (0);
+}
+
+/* === MAIN === */
+
+/**
  * main - Calculator's orchestrator
  * @note for now no parameter identified
  * Description: program allowing simple arithmetics
@@ -133,14 +179,14 @@ int main(void)
 {
 	int user_choice;
 
+
 	ui_display_menu();
 	do {
 		user_choice = get_menu_choice();
 		printf("Choice: %i\n", user_choice);
 		if (is_menu_choice_valid(user_choice))
-		{
-			/* Gets the appropriate function name and call */
-		}
+			operate(user_choice);
+		/* @warning missing part: properly "give hand back to user". */
 		else
 			printf("Invalid choice\n");
 	} while (user_choice != 0);
