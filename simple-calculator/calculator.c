@@ -43,6 +43,56 @@ int ui_display_menu(void)
 	return (0);
 }
 
+
+/**
+ * check_menu_choice - Grabs & validate user input
+ * @note for now no parameter identified
+ * Description: grabs user_input and checks
+ *   it is of expected type.
+ * Return: int (-1 = error, as 0 can be a valid input here)
+ */
+int check_menu_choice(void)
+{
+	/*
+	 * @note had thought of adding a "modes" parameter
+	 *   to cover both cases of "choosing menu option"
+	 *   and "providing numbers to compute"
+	 *   but in fact it's easier and possibly cleaner
+	 *   to just make two separate functions.
+	 * int check_user_input(char *mode) {}
+	 * const *modes = { "operation", "operandes" };
+	 */
+	/* https://www.geeksforgeeks.org/c/scanf-in-c/ */
+	/*
+	 * Needs to have a variable declared to "store" the input.
+	 * Defined as an "int" type because the functional scope of
+	 *   our program is limited to "choosing action with a digit"
+	 *   and "providing numbers to compute upon"
+	 *   so it is ok NOT accepting anything "broader".
+	 */
+	int user_input;
+	/*
+	 * Also needs a variable to store the return code
+	 *   from scanf so we know if the read input could
+	 *   correctly be interpreted as an integer or not.
+	 */
+	int validation_code;
+
+	/* https://cplusplus.com/reference/cstdio/scanf/ */
+	/* @note going for %i because seems more appropriate than %d */
+	/*
+	 * @note NOT restricting size to "1 digit" since
+	 * function dedicated to menu choice
+	 * BUT setting "%1d" just limits the READ instead of defining
+	 *   an "input constraint".
+	 */
+	validation_code = scanf("%d", &user_input);
+	if (validation_code <= 0)
+		return (-1);
+	else
+		return (user_input);
+}
+
 /**
  * main - Calculator's orchestrator
  * @note for now no parameter identified
@@ -52,6 +102,14 @@ int ui_display_menu(void)
  */
 int main(void)
 {
+	int user_choice;
+
 	ui_display_menu();
+	do {
+		user_choice = check_menu_choice();
+		printf("Choice: %i\n", user_choice);
+	} while (user_choice != 0);
+
+	printf("Bye!\n");
 	return (0);
 }
