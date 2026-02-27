@@ -1,6 +1,6 @@
 #include <stdio.h>
-/* Custom functions definition*/
-
+/*  Added to simplify some logic */
+#include <stdbool.h>
 /**
  * ui_display_menu - Renders primary menu.
  * Description: displays the "primary" menu
@@ -45,13 +45,13 @@ int ui_display_menu(void)
 
 
 /**
- * check_menu_choice - Grabs & validate user input
+ * get_menu_choice - Grabs & validate user input
  * @note for now no parameter identified
  * Description: grabs user_input and checks
  *   it is of expected type.
  * Return: int (-1 = error, as 0 can be a valid input here)
  */
-int check_menu_choice(void)
+int get_menu_choice(void)
 {
 	/*
 	 * @note had thought of adding a "modes" parameter
@@ -94,6 +94,35 @@ int check_menu_choice(void)
 }
 
 /**
+ * is_menu_choice_valid - Checks input matches supported operation.
+ * @choice: integer
+ * Description: takes the provided integer and checks that
+ *   it matches a digit associated with a supported operation.
+ * @note renamed from validate_menu_choice to is_menu_choice_valid
+ *   to stress that it returns a "logic statement".
+ * Return: boolean
+ */
+bool is_menu_choice_valid(int choice)
+{
+	bool valid_choice;
+	const int valid_menu_choices[] = {0, 1, 2, 3, 4};
+	int i;
+
+	/*
+	 * OMG C is really barebones xd
+	 * https://www.geeksforgeeks.org/c/length-of-array-in-c/
+	 * @note daring use sizeof int directly since the parameter
+	 *   is previously checked as an int.
+	 */
+	valid_choice = false;
+	for (i = 0; i < (int)(sizeof(valid_menu_choices) / sizeof(int)); i++)
+		if (valid_menu_choices[i] == choice)
+			valid_choice = true;
+
+	return (valid_choice);
+}
+
+/**
  * main - Calculator's orchestrator
  * @note for now no parameter identified
  * Description: program allowing simple arithmetics
@@ -106,8 +135,14 @@ int main(void)
 
 	ui_display_menu();
 	do {
-		user_choice = check_menu_choice();
+		user_choice = get_menu_choice();
 		printf("Choice: %i\n", user_choice);
+		if (is_menu_choice_valid(user_choice))
+		{
+			/* Gets the appropriate function name and call */
+		}
+		else
+			printf("Invalid choice\n");
 	} while (user_choice != 0);
 
 	printf("Bye!\n");
