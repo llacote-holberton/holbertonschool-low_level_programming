@@ -42,6 +42,30 @@ int ui_display_menu(void)
 	return (0);
 }
 
+/**
+ * clean_buffer - Just flushes the remaining of input buffer.
+ * Description: manually "empties" the user input buffer
+ *   by using scanf to "read everything left" THEN "newline"
+ *   without storing content.
+ * Return: int (0 = success)
+ */
+int clean_buffer(void)
+{
+	/*
+	 * Manual buffer wash by "reading without storing"
+	 *   whatever may be left in the input buffer to start fresh.
+	 * The "\n" must be "eaten" specifically so scanf considers
+	 *   we "read a single character" otherwise \n would be treated as a
+	 *   sort of "joker" saying "ignore any kind of space until next non space"
+	 * The "*" just AFTER % indicates we want to read without storing.
+	 * ^\n is a regular expression (different syntax than pearl though IIRC)
+	 * meaning "any character which is not a newline one"
+	 */
+	scanf("%*[^\n]"); /* [\n] = regex meaning "anything except newline". */
+	scanf("%*c");	/* Consumes a character which is the left over newline */
+
+	return (0);
+}
 
 /**
  * get_menu_choice - Grabs & validate user input
@@ -61,7 +85,12 @@ int get_menu_choice(void)
 	/* @note used to check whether input is usable. */
 	int validation_code;
 
-	/* @note going for %i because seems more appropriate than %d */
+	/*
+	 * @note length constraint (%1d) does not work as I thought
+	 *   just restricts "what's grabbed for reading"
+	 *   so would lead to incoherent behaviour if put
+	 *   (like "input 345" -> "3" is considered the input)
+	 */
 	validation_code = scanf("%d", &user_input);
 	if (validation_code <= 0)
 		return (-1);
@@ -89,8 +118,10 @@ int operate(int user_choice)
 
 	printf("A: ");
 	valid_A = scanf("%d", &A);
+	clean_buffer();
 	printf("B: ");
 	valid_B = scanf("%d", &B);
+	clean_buffer();
 	if (valid_A > 0 && valid_B > 0)
 	{
 		switch (user_choice)
@@ -135,21 +166,10 @@ int main(void)
 		if (user_choice > 0 && user_choice <= 4)
 			operate(user_choice);
 		/* @warning missing part: properly "give hand back to user". */
-		else if(user_choice != 0)
+		else if (user_choice != 0)
 		{
 			printf("Invalid choice\n");
-			/*
-			 * Manual buffer wash by "reading without storing"
-			 *   whatever may be left in the input buffer to start fresh.
-			 * The "\n" must be "eaten" specifically so scanf considers
-			 *   we "read a single character" otherwise \n would be treated as a
-			 *   sort of "joker" saying "ignore any kind of space until next non space"
-			 * The "*" just AFTER % indicates we want to read without storing.
-			 * ^\n is a regular expression (different syntax than pearl though IIRC)
-			 * meaning "any character which is not a newline one"
-			 */
-			scanf("%*[^\n]"); /* [\n] = regex meaning "anything except newline". */
-			scanf("%*c");	/* Consumes a character which is the left over newline */
+			clean_buffer();
 			printf("\n");
 		}
 	} while (user_choice != 0);
