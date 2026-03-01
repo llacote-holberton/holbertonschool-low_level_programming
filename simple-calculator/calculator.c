@@ -1,6 +1,5 @@
 #include <stdio.h>
-/*  Added to simplify some logic */
-#include <stdbool.h>
+
 /**
  * ui_display_menu - Renders primary menu.
  * Description: displays the "primary" menu
@@ -71,31 +70,6 @@ int get_menu_choice(void)
 }
 
 /**
- * is_menu_choice_valid - Checks input matches supported operation.
- * @choice: integer
- * Description: takes the provided integer and checks that
- *   it matches a digit associated with a supported operation.
- * Return: boolean
- */
-bool is_menu_choice_valid(int choice)
-{
-	bool valid_choice;
-	const int valid_menu_choices[] = {0, 1, 2, 3, 4};
-	int i;
-
-	/*
-	 * @note daring use sizeof int directly since the parameter
-	 *   is previously checked as an int.
-	 */
-	valid_choice = false;
-	for (i = 0; i < (int)(sizeof(valid_menu_choices) / sizeof(int)); i++)
-		if (valid_menu_choices[i] == choice)
-			valid_choice = true;
-
-	return (valid_choice);
-}
-
-/**
  * operate - Execute an arithmetic operation on 2 numbers.
  * @user_choice: int
  * Description: grabs
@@ -157,10 +131,11 @@ int main(void)
 	do {
 		user_choice = get_menu_choice();
 		printf("Choice: %i\n", user_choice);
-		if (is_menu_choice_valid(user_choice))
+		/* @note had to cut dedicated function so went for shortest */
+		if (user_choice > 0 && user_choice <= 4)
 			operate(user_choice);
 		/* @warning missing part: properly "give hand back to user". */
-		else
+		else if(user_choice != 0)
 		{
 			printf("Invalid choice\n");
 			/*
