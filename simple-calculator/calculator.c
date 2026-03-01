@@ -108,17 +108,17 @@ int operate(int user_choice)
 	 * @note would have normally called them n1 and n2
 	 *   but since we display "A" and "B"...
 	 */
-	int A;
-	int B;
+	float A;
+	float B;
 	int valid_A;
 	int valid_B;
-	int result;
+	float result;
 
 	printf("A: ");
-	valid_A = scanf("%d", &A);
+	valid_A = scanf("%f", &A);
 	clean_buffer();
 	printf("B: ");
-	valid_B = scanf("%d", &B);
+	valid_B = scanf("%f", &B);
 	clean_buffer();
 	if (valid_A > 0 && valid_B > 0)
 	{
@@ -139,7 +139,7 @@ int operate(int user_choice)
 			default:
 				break;
 		}
-		printf("Result: %d", result);
+		printf("Result: %.2f", result);
 	}
 	else
 		printf("Input could not be processed, numbers requested!\n\n");
