@@ -110,47 +110,37 @@ int operate(int user_choice)
 	 */
 	float A;
 	float B;
-	int valid_A;
-	int valid_B;
 	float result;
 
-	do	{
-		printf("A: ");
-		valid_A = scanf("%f", &A);
-		clean_buffer();
-		printf(valid_A <= 0 ? "Invalid number\n" : "");
-	} while (valid_A <= 0);
-	do
+	while (scanf("%f", &A) <= 0)
 	{
-		printf("B: ");
-		valid_B = scanf("%f", &B);
+		printf("Invalid number\n");
 		clean_buffer();
-		printf(valid_B <= 0 ? "Invalid number\n" : "");
-	} while (valid_B <= 0);
-
-	if (valid_A > 0 && valid_B > 0)
-	{
-		switch (user_choice)
-		{
-			case 1: /* "Add" */
-				result = A + B;
-				break;
-			case 2: /* "Substract" */
-				result = A - B;
-				break;
-			case 3: /* "Multiply" */
-				result = A * B;
-				break;
-			case 4: /* "Divide" */
-				result = (B != 0) ? A / B : 0;
-				break;
-			default:
-				break;
-		}
-		printf("Result: %.2f", result);
 	}
-	else
-		printf("Input could not be processed, numbers requested!\n\n");
+	while (scanf("%f", &B) <= 0)
+	{
+		printf("Invalid number\n");
+		clean_buffer();
+	}
+
+	switch (user_choice)
+	{
+		case 1: /* "Add" */
+			result = A + B;
+			break;
+		case 2: /* "Substract" */
+			result = A - B;
+			break;
+		case 3: /* "Multiply" */
+			result = A * B;
+			break;
+		case 4: /* "Divide" */
+			result = (B != 0) ? A / B : 0;
+			break;
+		default:
+			break;
+	}
+	printf("Result: %.2f", result);
 	return (0);
 }
 
