@@ -9,7 +9,6 @@
  */
 int ui_display_menu(void)
 {
-	const char *welcome = "\n=== Welcome to this simple calculator! ;) ===\n";
 	/*
 	 * Using an array because seems the most logical for a
 	 *   "set" of values which we know we will iterate over.
@@ -35,7 +34,6 @@ int ui_display_menu(void)
 	const int menu_lines = 6;
 	int i;
 
-	printf("%s", welcome);
 	for (i = 0; i < menu_lines; i++)
 		printf("%s\n", menu_items[i]);
 
@@ -138,9 +136,13 @@ int operate(int user_choice)
 			case 4: /* "Divide" */
 				result = (B != 0) ? A / B : 0;
 				break;
+			default:
+				break;
 		}
 		printf("Result: %d", result);
 	}
+	else
+		printf("Input could not be processed, numbers requested!\n\n");
 	return (0);
 }
 
@@ -155,11 +157,13 @@ int operate(int user_choice)
  */
 int main(void)
 {
+	const char *welcome = "\n=== Welcome to this simple calculator! ;) ===";
 	int user_choice;
 
-
-	ui_display_menu();
+	printf("%s", welcome);
 	do {
+		printf("\n\n");
+		ui_display_menu();
 		user_choice = get_menu_choice();
 		printf("Choice: %i\n", user_choice);
 		/* @note had to cut dedicated function so went for shortest */
