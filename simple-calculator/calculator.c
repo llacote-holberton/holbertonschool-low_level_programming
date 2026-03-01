@@ -114,12 +114,20 @@ int operate(int user_choice)
 	int valid_B;
 	float result;
 
-	printf("A: ");
-	valid_A = scanf("%f", &A);
-	clean_buffer();
-	printf("B: ");
-	valid_B = scanf("%f", &B);
-	clean_buffer();
+	do	{
+		printf("A: ");
+		valid_A = scanf("%f", &A);
+		clean_buffer();
+		printf(valid_A <= 0 ? "Invalid number\n" : "");
+	} while (valid_A <= 0);
+	do
+	{
+		printf("B: ");
+		valid_B = scanf("%f", &B);
+		clean_buffer();
+		printf(valid_B <= 0 ? "Invalid number\n" : "");
+	} while (valid_B <= 0);
+
 	if (valid_A > 0 && valid_B > 0)
 	{
 		switch (user_choice)
