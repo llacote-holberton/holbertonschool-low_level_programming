@@ -161,7 +161,22 @@ int main(void)
 			operate(user_choice);
 		/* @warning missing part: properly "give hand back to user". */
 		else
+		{
 			printf("Invalid choice\n");
+			/*
+			 * Manual buffer wash by "reading without storing"
+			 *   whatever may be left in the input buffer to start fresh.
+			 * The "\n" must be "eaten" specifically so scanf considers
+			 *   we "read a single character" otherwise \n would be treated as a
+			 *   sort of "joker" saying "ignore any kind of space until next non space"
+			 * The "*" just AFTER % indicates we want to read without storing.
+			 * ^\n is a regular expression (different syntax than pearl though IIRC)
+			 * meaning "any character which is not a newline one"
+			 */
+			scanf("%*[^\n]"); /* [\n] = regex meaning "anything except newline". */
+			scanf("%*c");	/* Consumes a character which is the left over newline */
+			printf("\n");
+		}
 	} while (user_choice != 0);
 
 	printf("Bye!\n");
