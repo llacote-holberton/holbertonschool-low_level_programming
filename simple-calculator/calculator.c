@@ -54,38 +54,15 @@ int ui_display_menu(void)
 int get_menu_choice(void)
 {
 	/*
-	 * @note had thought of adding a "modes" parameter
-	 *   to cover both cases of "choosing menu option"
-	 *   and "providing numbers to compute"
-	 *   but in fact it's easier and possibly cleaner
-	 *   to just make two separate functions.
-	 * int check_user_input(char *mode) {}
-	 * const *modes = { "operation", "operandes" };
-	 */
-	/* https://www.geeksforgeeks.org/c/scanf-in-c/ */
-	/*
-	 * Needs to have a variable declared to "store" the input.
-	 * Defined as an "int" type because the functional scope of
-	 *   our program is limited to "choosing action with a digit"
-	 *   and "providing numbers to compute upon"
-	 *   so it is ok NOT accepting anything "broader".
+	 * @note: defined as an "int" type because coherent with
+	 *   the functional scope in which this value will be used
+	 *   ([0..4] only supported choices).
 	 */
 	int user_input;
-	/*
-	 * Also needs a variable to store the return code
-	 *   from scanf so we know if the read input could
-	 *   correctly be interpreted as an integer or not.
-	 */
+	/* @note used to check whether input is usable. */
 	int validation_code;
 
-	/* https://cplusplus.com/reference/cstdio/scanf/ */
 	/* @note going for %i because seems more appropriate than %d */
-	/*
-	 * @note NOT restricting size to "1 digit" since
-	 * function dedicated to menu choice
-	 * BUT setting "%1d" just limits the READ instead of defining
-	 *   an "input constraint".
-	 */
 	validation_code = scanf("%d", &user_input);
 	if (validation_code <= 0)
 		return (-1);
@@ -98,8 +75,6 @@ int get_menu_choice(void)
  * @choice: integer
  * Description: takes the provided integer and checks that
  *   it matches a digit associated with a supported operation.
- * @note renamed from validate_menu_choice to is_menu_choice_valid
- *   to stress that it returns a "logic statement".
  * Return: boolean
  */
 bool is_menu_choice_valid(int choice)
@@ -109,8 +84,6 @@ bool is_menu_choice_valid(int choice)
 	int i;
 
 	/*
-	 * OMG C is really barebones xd
-	 * https://www.geeksforgeeks.org/c/length-of-array-in-c/
 	 * @note daring use sizeof int directly since the parameter
 	 *   is previously checked as an int.
 	 */
