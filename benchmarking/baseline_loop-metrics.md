@@ -17,3 +17,9 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -Wno-long-long
 - Run 3:
 	* Iterations: 100000000
 	* Execution time: 0.076208 seconds
+- Run 4:
+	* Iterations: 100000000
+	* Execution time: 0.075349 seconds
+- Run 5:
+	* Iterations: 100000000
+	* Execution time: 0.075333 seconds
