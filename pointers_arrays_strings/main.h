@@ -11,5 +11,10 @@ void swap_int(int *a, int *b);
 int _strlen(char *s);
 /* Exo 03 */
 void _puts(char *str);
+/* Exo 04 */
+void print_rev(char *s);
+
+
+
 
 #endif
