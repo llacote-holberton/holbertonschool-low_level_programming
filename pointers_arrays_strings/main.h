@@ -13,8 +13,8 @@ int _strlen(char *s);
 void _puts(char *str);
 /* Exo 04 */
 void print_rev(char *s);
-
-
+/* Exo 05 */
+void rev_string(char *s);
 
 
 #endif
