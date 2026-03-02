@@ -31,6 +31,9 @@ void print_rev(char *s)
 		/*   because characters take only 1 byte.    */
 		cursor++;
 	}
+	/* @IMPORTANT REQUIRED to "remove" the '\0' as it would */
+	/*   otherwise mess the character count (64 expected).  */
+	--cursor;
 	do {
 		_putchar(s[cursor]);
 		--cursor;
