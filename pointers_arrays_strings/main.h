@@ -9,5 +9,7 @@ void reset_to_98(int *n);
 void swap_int(int *a, int *b);
 /* Exo 02 */
 int _strlen(char *s);
+/* Exo 03 */
+void _puts(char *str);
 
 #endif
