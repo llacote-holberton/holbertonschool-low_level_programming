@@ -3,5 +3,10 @@
 
 /* Exo 00 */
 void reset_to_98(int *n);
+/* Exo 01 */
+void swap_int(int *a, int *b);
+
+
+
 
 #endif
