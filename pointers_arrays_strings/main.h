@@ -23,6 +23,6 @@ void puts_half(char *str);
 void print_array(int *a, int n);
 /* Exo 09 */
 char *_strcpy(char *dest, char *src);
-
-
+/* Exo 10 */
+int _atoi(char *s);
 #endif
