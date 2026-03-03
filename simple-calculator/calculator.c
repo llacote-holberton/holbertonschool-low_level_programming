@@ -101,22 +101,22 @@ int get_menu_choice(void)
  * @user_choice: int
  * Description: grabs
  * Return: int (0 = success)
+ * @note would have normally called input numbers n1 and n2
+ *   but since we display "A" and "B" it makes sense to match...
  */
 int operate(int user_choice)
 {
-	/*
-	 * @note would have normally called them n1 and n2
-	 *   but since we display "A" and "B"...
-	 */
 	float A;
 	float B;
 	float result;
 
+	printf("A: ");
 	while (scanf("%f", &A) <= 0)
 	{
 		printf("Invalid number\n");
 		clean_buffer();
 	}
+	printf("B: ");
 	while (scanf("%f", &B) <= 0)
 	{
 		printf("Invalid number\n");
@@ -140,7 +140,11 @@ int operate(int user_choice)
 		default:
 			break;
 	}
-	printf("Result: %.2f", result);
+	/* Forgot about specific error message */
+	/*   so kinda cheating here. */
+	(B == 0)
+		? printf("Error: division by zero\n")
+		: printf("Result: %.2f", result);
 	return (0);
 }
 
