@@ -17,5 +17,12 @@ void print_rev(char *s);
 void rev_string(char *s);
 /* Exo 06 */
 void puts2(char *str);
+/* Exo 07 */
+void puts_half(char *str);
+
+
+
+
+
 
 #endif
