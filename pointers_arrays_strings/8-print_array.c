@@ -13,18 +13,35 @@ void print_array(int *a, int n)
 {
 	int cursor;
 
-	/* Simple guard clause for useless calls. */
-	if (n == 0) return;
-	/* @note I make the (presomptuous?) assumption */
-	/*   that a non-empty array is provided */
-
-	cursor = 0;
-	do {
+	/*
+	 * Better since shorter and easier to read
+	 *   while maintaining the "guard clause"
+	 *   (don't run if n equals 0).
+	 */
+	for (cursor = 0; cursor < n; cursor++)
+	{
 		printf("%d", a[cursor]);
-		++cursor;
-		if (cursor < n)
+		/* A bit more readable that way to keep         */
+		/*  the loop increment "isolated" as last step. */
+		/* But requires a slightly different condition than before. */
+		if (cursor < n - 1)
 			printf(", ");
-	} while (cursor < n);
+	}
 	printf("\n");
 }
 
+/*
+ * VERSION 1: working but too convoluted.
+ *
+ * int cursor;
+ *
+ * if (n == 0) return;
+ * cursor = 0;
+ * do {
+ *   printf("%d", a[cursor]);
+ *   ++cursor;
+ *   if (cursor < n)
+ *     printf(", ");
+ * } while (cursor < n);
+ * printf("\n");
+ */
