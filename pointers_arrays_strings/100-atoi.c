@@ -48,7 +48,7 @@ int _atoi(char *s)
 	printf("String parsed: %s\n", s);
 	while (s[cursor] && is_number_finished == 0)
 	{
-		printf("%c ", s[cursor]);
+		/* printf("%c ", s[cursor]); */
 		/* How to achieve 2? */
 		/* By "aternating" a "truth statement" */
 		is_negative += (s[cursor] == '-') ? 1 : (s[cursor] == '+' ? -1 : 0);
@@ -64,12 +64,17 @@ int _atoi(char *s)
 			/*   as soon as the last digit will have been passed. */
 			while (s[cursor] >= '0' && s[cursor] <= '9')
 			{
-				printf("\nDigit found: %c \n", s[cursor]);
+				/*printf("\nDigit found: %c \n", s[cursor]);*/
 				/* Must first use the current digit BEFORE incrementing pointer */
 				s_as_number = (s_as_number * 10) + (s[cursor] - '0');
-				printf("Number is now %d\n", s_as_number);
+				/* printf("Number is now %d\n", s_as_number); */
 				cursor++;
 			}
+			printf("\nFinal value of Number is: %d\n", s_as_number);
+			/* Feels like the most appropriate "moment" to affect the sign. */
+			/* printf("Final value of is_negative value is %d\n", is_negative); */
+			if(is_negative > 0)
+				s_as_number = -s_as_number;
 			/* While this would technically not necessary anymore  */
 			/*   if we wanted to agggregate ALL digits of a string */
 			/*   as we ONLY want the FIRST complete number is is   */
@@ -78,7 +83,7 @@ int _atoi(char *s)
 		}
 		cursor++;
 	}
-	printf("END OF PARSE\n");
+	printf("END OF PARSE\n\n");
 	
 
 	return (s_as_number);
