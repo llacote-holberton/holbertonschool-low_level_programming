@@ -58,19 +58,6 @@ int _atoi(char *s)
 		{
 			while (is_number_finished == 0) 
 			{
-				/* 
-				 * Arrays are forbidden, so we must construct number
-				 * "sequentially".
-				 * Since we read from left to right, and read a character 
-				 *   "which represents a digit" we must...
-				 * a)  "Push" the existing digit(s) "on the left" to free up the
-				 *     "unit" column, so multiply existing result by 10.
-				 * b) Add to that the actual value represented by the digit
-				 */
-				s_as_number = (s_as_number * 10) + (s[cursor] - '0');
-				printf("\nDigit found: %c \n", s[cursor]);
-				printf("Number is now %d\n", s_as_number);
-				
 				if(s[cursor] < '0' || s[cursor] > '9')
 				{
 					printf("Character not a digit found: %c !!\n", s[cursor]);
@@ -78,7 +65,23 @@ int _atoi(char *s)
 					/*  higher level loop so we need an info to "bubble up". */
 					is_number_finished = 1;
 				}
-				if (! is_number_finished) cursor++;
+				else 
+				{
+					/* 
+					 * Arrays are forbidden, so we must construct number
+					 * "sequentially".
+					 * Since we read from left to right, and read a character 
+					 *   "which represents a digit" we must...
+					 * a)  "Push" the existing digit(s) "on the left" to free up the
+					 *     "unit" column, so multiply existing result by 10.
+					 * b) Add to that the actual value represented by the digit
+					 */
+					s_as_number = (s_as_number * 10) + (s[cursor] - '0');
+					printf("\nDigit found: %c \n", s[cursor]);
+					printf("Number is now %d\n", s_as_number);
+					cursor++;
+					
+				}
 			}
 		}
 		cursor++;
@@ -88,3 +91,39 @@ int _atoi(char *s)
 
 	return (s_as_number);
 }
+
+/* ==== SELF-LEARNING COMMENTS */
+/*
+ * INNER LOOP V1
+ * Was "functional" BUT the way I dissociated
+ *   incrementation and number construction
+ *   and made the latter before the check ended up
+ *   adding non digits to the number construction
+ *   leading to unpredictable behaviour.
+ * => It is mandatory to "tie up" number construction and 
+ *    cursor increment as "an atomic operation".
+ * 
+ * 		if(s[cursor] >= '0' && s[cursor] <= '9')
+ { *
+ while (is_number_finished == 0) 
+ {
+ if(s[cursor] < '0' || s[cursor] > '9')
+ {
+ is_number_finished = 1;
+ }
+ if (! is_number_finished) cursor++;
+ * 
+ * Arrays are forbidden, so we must construct number
+ * "sequentially".
+ * Since we read from left to right, and read a character 
+ *   "which represents a digit" we must...
+ * a)  "Push" the existing digit(s) "on the left" to free up the
+ *     "unit" column, so multiply existing result by 10.
+ * b) Add to that the actual value represented by the digit
+ * 
+ * s_as_number = (s_as_number * 10) + (s[cursor] - '0');
+ * printf("\nDigit found: %c \n", s[cursor]);
+ * printf("Number is now %d\n", s_as_number);
+ * }
+ * }
+ */
