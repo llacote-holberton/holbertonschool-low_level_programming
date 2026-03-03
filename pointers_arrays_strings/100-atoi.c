@@ -56,33 +56,25 @@ int _atoi(char *s)
 		/* FOUND the start of our number!! */
 		if(s[cursor] >= '0' && s[cursor] <= '9')
 		{
-			while (is_number_finished == 0) 
+			/* @note also more intuitive now that I see it: even though */
+			/*   it "feels redundant" with above it is NOT as it "switches mode" */
+			/*   from "simple branching" into "conditional loop". */
+			/* It's also more cohesive with the functional logic  */
+			/*   as it will naturally stop "before entering body again" */
+			/*   as soon as the last digit will have been passed. */
+			while (s[cursor] >= '0' && s[cursor] <= '9')
 			{
-				if(s[cursor] < '0' || s[cursor] > '9')
-				{
-					printf("Character not a digit found: %c !!\n", s[cursor]);
-					/* Not using "break;" because we want to also break the */
-					/*  higher level loop so we need an info to "bubble up". */
-					is_number_finished = 1;
-				}
-				else 
-				{
-					/* 
-					 * Arrays are forbidden, so we must construct number
-					 * "sequentially".
-					 * Since we read from left to right, and read a character 
-					 *   "which represents a digit" we must...
-					 * a)  "Push" the existing digit(s) "on the left" to free up the
-					 *     "unit" column, so multiply existing result by 10.
-					 * b) Add to that the actual value represented by the digit
-					 */
-					s_as_number = (s_as_number * 10) + (s[cursor] - '0');
-					printf("\nDigit found: %c \n", s[cursor]);
-					printf("Number is now %d\n", s_as_number);
-					cursor++;
-					
-				}
+				printf("\nDigit found: %c \n", s[cursor]);
+				/* Must first use the current digit BEFORE incrementing pointer */
+				s_as_number = (s_as_number * 10) + (s[cursor] - '0');
+				printf("Number is now %d\n", s_as_number);
+				cursor++;
 			}
+			/* While this would technically not necessary anymore  */
+			/*   if we wanted to agggregate ALL digits of a string */
+			/*   as we ONLY want the FIRST complete number is is   */
+			/*   still required to "end reading immediately after".*/
+			is_number_finished = 1;
 		}
 		cursor++;
 	}
@@ -100,30 +92,46 @@ int _atoi(char *s)
  *   and made the latter before the check ended up
  *   adding non digits to the number construction
  *   leading to unpredictable behaviour.
- * => It is mandatory to "tie up" number construction and 
+ * => It is mandatory to "tie up" number construction and
  *    cursor increment as "an atomic operation".
- * 
- * 		if(s[cursor] >= '0' && s[cursor] <= '9')
- { *
- while (is_number_finished == 0) 
- {
- if(s[cursor] < '0' || s[cursor] > '9')
- {
- is_number_finished = 1;
- }
- if (! is_number_finished) cursor++;
- * 
+ * => V1.5 "wrapped both" in an ELSE counterpart to the if.
+ *
+ * if(s[cursor] >= '0' && s[cursor] <= '9')
+ *
+ * while (is_number_finished == 0)
+ * {
+ * if(s[cursor] < '0' || s[cursor] > '9')
+ * {
+ * is_number_finished = 1;
+ * }
+ * if (! is_number_finished) cursor++;
+ *
  * Arrays are forbidden, so we must construct number
  * "sequentially".
- * Since we read from left to right, and read a character 
+ * Since we read from left to right, and read a character
  *   "which represents a digit" we must...
  * a)  "Push" the existing digit(s) "on the left" to free up the
  *     "unit" column, so multiply existing result by 10.
  * b) Add to that the actual value represented by the digit
- * 
+ *
  * s_as_number = (s_as_number * 10) + (s[cursor] - '0');
  * printf("\nDigit found: %c \n", s[cursor]);
  * printf("Number is now %d\n", s_as_number);
  * }
  * }
+ *
+ * VERSION 1.5 condensed
+ * if(s[cursor] >= '0' && s[cursor] <= '9')
+ *
+ * while (is_number_finished == 0)
+ * {
+ *   if(s[cursor] < '0' || s[cursor] > '9')
+ *     is_number_finished = 1;
+ *   else
+ *   {
+ *     s_as_number = (s_as_number * 10) + (s[cursor] - '0');
+ *     cursor++;
+ *   }
+ * }
+ * if (! is_number_finished) cursor++;
  */
