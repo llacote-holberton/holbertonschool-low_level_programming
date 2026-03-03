@@ -8,6 +8,9 @@
  *   in an integer number  (with which rules??).
  * Return: integer as converted string.
  * 
+ * Official command documentation
+ *  https://www.ibm.com/docs/fr/i/7.6.0
+ *    ?topic=functions-atoi-convert-character-string-integer
  * Special rules
  * The number in the string can be preceded by an infinite number of characters
  * You need to take into account all the - and + signs before the number            *
@@ -55,7 +58,19 @@ int _atoi(char *s)
 		{
 			while (is_number_finished == 0) 
 			{
+				/* 
+				 * Arrays are forbidden, so we must construct number
+				 * "sequentially".
+				 * Since we read from left to right, and read a character 
+				 *   "which represents a digit" we must...
+				 * a)  "Push" the existing digit(s) "on the left" to free up the
+				 *     "unit" column, so multiply existing result by 10.
+				 * b) Add to that the actual value represented by the digit
+				 */
+				s_as_number = (s_as_number * 10) + (s[cursor] - '0');
 				printf("\nDigit found: %c \n", s[cursor]);
+				printf("Number is now %d\n", s_as_number);
+				
 				if(s[cursor] < '0' || s[cursor] > '9')
 				{
 					printf("Character not a digit found: %c !!\n", s[cursor]);
