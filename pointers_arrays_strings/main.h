@@ -33,8 +33,8 @@ char *_strcat(char *dest, char *src);
 char *_strncat(char *dest, char *src, int n);
 /* R2 - Exo 02 */
 char *_strncpy(char *dest, char *src, int n);
-
-
+/* R2 - Exo 03 */
+int _strcmp(char *s1, char *s2);
 
 
 
