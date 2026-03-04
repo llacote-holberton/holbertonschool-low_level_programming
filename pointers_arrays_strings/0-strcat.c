@@ -7,7 +7,7 @@
  *
  * Description: appends src to the end of dest
  *   while "moving" the end of line character.
- * Return: void.
+ * Return: pointer to character array.
  */
 char *_strcat(char *dest, char *src)
 {
