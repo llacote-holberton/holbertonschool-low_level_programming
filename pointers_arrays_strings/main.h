@@ -41,6 +41,6 @@ void reverse_array(int *a, int n);
 char *string_toupper(char *);
 /* R2 - Exo 06 */
 char *cap_string(char *);
-
-
+/* R2 - Exo 07 */
+char *leet(char *);
 #endif
