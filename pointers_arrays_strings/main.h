@@ -35,6 +35,8 @@ char *_strncat(char *dest, char *src, int n);
 char *_strncpy(char *dest, char *src, int n);
 /* R2 - Exo 03 */
 int _strcmp(char *s1, char *s2);
+/* R2 - Exo 04 */
+void reverse_array(int *a, int n);
 
 
 
