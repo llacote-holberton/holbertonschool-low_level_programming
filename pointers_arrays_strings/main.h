@@ -30,4 +30,15 @@ int _atoi(char *s);
 /* R2 - Exo 00 */
 char *_strcat(char *dest, char *src);
 
+/* R2 - Exo 01 */
+char *_strncat(char *dest, char *src, int n);
+
+
+
+
+
+
+
+
+
 #endif
