@@ -25,4 +25,9 @@ void print_array(int *a, int n);
 char *_strcpy(char *dest, char *src);
 /* Exo 10 */
 int _atoi(char *s);
+
+/* Project 2 - More Pointers, arrays and strings*/
+/* R2 - Exo 00 */
+char *_strcat(char *dest, char *src);
+
 #endif
