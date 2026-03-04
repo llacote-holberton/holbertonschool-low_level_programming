@@ -39,8 +39,8 @@ int _strcmp(char *s1, char *s2);
 void reverse_array(int *a, int n);
 /* R2 - Exo 05 */
 char *string_toupper(char *);
-
-
+/* R2 - Exo 06 */
+char *cap_string(char *);
 
 
 #endif
