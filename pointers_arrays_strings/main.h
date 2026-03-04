@@ -29,10 +29,10 @@ int _atoi(char *s);
 /* Project 2 - More Pointers, arrays and strings*/
 /* R2 - Exo 00 */
 char *_strcat(char *dest, char *src);
-
 /* R2 - Exo 01 */
 char *_strncat(char *dest, char *src, int n);
-
+/* R2 - Exo 02 */
+char *_strncpy(char *dest, char *src, int n);
 
 
 
