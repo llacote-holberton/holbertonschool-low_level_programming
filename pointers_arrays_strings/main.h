@@ -37,8 +37,8 @@ char *_strncpy(char *dest, char *src, int n);
 int _strcmp(char *s1, char *s2);
 /* R2 - Exo 04 */
 void reverse_array(int *a, int n);
-
-
+/* R2 - Exo 05 */
+char *string_toupper(char *);
 
 
 
