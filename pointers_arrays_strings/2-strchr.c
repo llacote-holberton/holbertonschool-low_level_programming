@@ -9,6 +9,8 @@
  * Description: search for c character in provided string
  *   and returns a pointer to that address or null.
  * Return: address of found char or null if coulnd't be found.
+ *
+ * @warning Check number 8 FAILED on checker (output in one case).
  */
 char *_strchr(char *s, char c)
 {
@@ -27,6 +29,11 @@ char *_strchr(char *s, char c)
 		}
 		parser++;
 	}
+	/* Must also support the "searched char is EOL"! */
+	/* And logically only way without changing whole structure */
+	/*   is once we have parser at the end of the string. */
+	if (c == '\0')
+		first_found = parser;
 
 	return (first_found);
 }
