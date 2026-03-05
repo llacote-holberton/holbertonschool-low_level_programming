@@ -50,7 +50,7 @@ char *_memset(char *s, char b, unsigned int n);
 /* R3 - Exo 01 */
 char *_memcpy(char *dest, char *src, unsigned int n);
 /* R3 - Exo 02 */
-
+char *_strchr(char *s, char c);
 /* R3 - Exo 03 */
 
 /* R3 - Exo 04 */
