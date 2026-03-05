@@ -43,4 +43,22 @@ char *string_toupper(char *);
 char *cap_string(char *);
 /* R2 - Exo 07 */
 char *leet(char *);
+
+/* Project 2 - Even more pointers, arrays and strings */
+/* R3 - Exo 00 */
+char *_memset(char *s, char b, unsigned int n);
+/* R3 - Exo 01 */
+
+/* R3 - Exo 02 */
+
+/* R3 - Exo 03 */
+
+/* R3 - Exo 04 */
+
+/* R3 - Exo 05 */
+
+/* R3 - Exo 06 */
+
+/* R3 - Exo 07 */
+
 #endif
