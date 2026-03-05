@@ -48,7 +48,7 @@ char *leet(char *);
 /* R3 - Exo 00 */
 char *_memset(char *s, char b, unsigned int n);
 /* R3 - Exo 01 */
-
+char *_memcpy(char *dest, char *src, unsigned int n);
 /* R3 - Exo 02 */
 
 /* R3 - Exo 03 */
