@@ -9,12 +9,20 @@
  * Return: pointer to modified string.
  *
  * ---- SPECIAL CONSTRAINTS -----
- *  You can only use one if in your code
+ *  You can only use one IF in your code
  *  You can only use two loops in your code*
  *  You are not allowed to use s.w.i.t.c.h
  * (warning: checker makes basic grep to check conditions are fulfilled
  *  so the w.o.r.d above had to be "spelled like that" otherwise FAIL.)
  *  You are not allowed to use any ternary operation*
+ * 
+ * NOTE: the difference of performance between this version and 
+ *   "nested loops to, inside first string parse, compare and replace"
+ *   the target characters...
+ * Is currently infinitesimal because the vocabulary is recreated each time.
+ *   it would need to be statically declared and initialized (wich a state
+ *   checked on function start) to start making a difference, and it would
+ *   still only start feeling significant at big scale (>1m char strings)
  */
 char *leet(char *string_to_alter)
 {
