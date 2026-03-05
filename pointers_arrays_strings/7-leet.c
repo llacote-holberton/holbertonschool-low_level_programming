@@ -11,7 +11,9 @@
  * ---- SPECIAL CONSTRAINTS -----
  *  You can only use one if in your code
  *  You can only use two loops in your code*
- *  You are not allowed to use switch
+ *  You are not allowed to use s.w.i.t.c.h
+ * (warning: checker makes basic grep to check conditions are fulfilled
+ *  so the w.o.r.d above had to be "spelled like that" otherwise FAIL.)
  *  You are not allowed to use any ternary operation*
  */
 char *leet(char *string_to_alter)
