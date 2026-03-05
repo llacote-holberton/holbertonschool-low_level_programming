@@ -41,7 +41,9 @@ int _atoi(char *s)
 	/* Used to stop parsing once first number "entirely found" */
 	int is_number_finished;
 	/* First found number with its computed sign */
-	int s_as_number;
+	/* NOTE: we use unsign to double the "supported range" */
+	/*   hence the interest of "managing the sign on its own". */
+	unsigned int s_as_number;
 
 	cursor = 0;
 	is_negative = 0;
@@ -58,12 +60,14 @@ int _atoi(char *s)
 				/* @note "smarter way" using post-increment */
 				/*  to read value *before* moving cursor"   */
 				s_as_number = (s_as_number * 10) + (s[cursor++] - '0');
-			if (is_negative > 0)
-				s_as_number = -s_as_number;
+			/* WORKED ONLY when s_as_number was a signed int */
+			/* if (is_negative > 0) */
+			/* s_as_number = -s_as_number; */
+			/* On top of that we made redundant affectations */
 			is_number_finished = 1;
 		}
 		cursor++;
 	}
 
-	return (s_as_number);
+	return (is_negative ? s_as_number * -1 : s_as_number);
 }
