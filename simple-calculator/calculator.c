@@ -142,7 +142,7 @@ int operate(int user_choice)
 	}
 	/* Forgot about specific error message */
 	/*   so kinda cheating here. */
-	(B == 0)
+	(user_choice == 4 && B == 0)
 		? printf("Error: division by zero\n")
 		: printf("Result: %.2f", result);
 	return (0);
