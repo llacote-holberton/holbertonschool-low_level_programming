@@ -20,12 +20,15 @@ In case that helps here are online resources to install
 # 1. Downloading
 If you have git and are comfortable with command line,
   you can simply open one and go to the directory in which you want calculator to be.
-  Then run (without the quotes) "git clone <FIXME URL>"
+  Then run (without the quotes) "git clone https://github.com/llacote-holberton/holbertonschool-low_level_programming.git"
 Otherwise you can simply download a zip containing all projects file
-  by following this url: <FIXME> then unfolding it where you want on your computer.
+  by following [this url](https://github.com/llacote-holberton/holbertonschool-low_level_programming/archive/refs/heads/main.zip)
+  then unfolding it where you want on your computer.
 
 ## 2. Compiling
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 calculator.c -o calculator
+Open the terminal, go inside the project directory then inside its "simple-calculator" subfolder.
+Then type the following command (without quotes if you're reading this as raw text).
+`gcc -Wall -Werror -Wextra -pedantic -std=gnu89 calculator.c -o calculator`
 
 ## 3. Starting program
 Open a terminal place yourself in the directory in which you have downloaded/extracted
