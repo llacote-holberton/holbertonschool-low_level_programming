@@ -40,35 +40,33 @@ int main(int argc, char *argv[])
 	else
 	{
 		for (i = 1; error_found == 0 && i < argc; i++)
-		{
-			/* MUST check first if there is any string to parse */
-			if(argv[i][0] == '\0') /* "Empty" string is NOT a digit */
+		{ /* MUST check first if there is any string to parse */
+			if (argv[i][0] == '\0') /* "Empty" string is NOT a digit */
 				error_found = 1;
 			/* Need to check characters of each argument and break */
 			/* as soon as we get a non-digit */
-			for (c = 0; argv[i][c] != '\0'; c++)
+			else
 			{
-				/* Should we allow negative numbers??? */
-				if (argv[i][c] < '0' || argv[i][c] > '9')
+				for (c = 0; argv[i][c] != '\0'; c++)
 				{
-					error_found = 1;
-					break;
+					/* Should we allow negative numbers??? */
+					if (argv[i][c] < '0' || argv[i][c] > '9')
+					{
+						error_found = 1;
+						break;
+					}
 				}
 			}
+			if (!error_found)
+				sum_result += atoi(argv[i]);
 		}
 	}
 	if (error_found)
-	{
 		printf("Error\n");
-		return (1);
-	}
-		else
-	{
-		for (i = 1; i < argc; i++)
-			sum_result += atoi(argv[i]);
+	else
 		printf("%d\n", sum_result);
-	}
-		return (0);
+
+	return (error_found);
 }
 
 /* I'd like to make an array of int to directly   */
