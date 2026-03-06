@@ -14,20 +14,7 @@
  */
 char *_strstr(char *haystack, char *needle)
 {
-	/* This time we want to get a full string so, while parsing haystack...  */
-	/* We must FIRST find the occurence of the first character of needle.    */
-	/* IF/WHEN we find it...                                                 */
-	/*  1/ we "save" that "start position" in case we actually found needle  */
-	/*     (easiest way mechanically is using offset target so FOR loop)     */
-	/*  2/ we try to have an exact match by comparing from current pos       */
-	/*        each character with matching pos in needle...                  */
-	/*     Case a) We find different character in next position              */
-	/*          -> we break inner loop and resume.                           */
-	/*     Case b) AS SOON AS WE FOUND the WHOLE sequence                    */
-	/*          -> We set state "needle_found" and stop inner loop.          */
-	/*  3/ Primary loop must stop when whichever comes first between         */
-	/*     End of haystack traversal OR "needle_found" (== 1);               */
-	/*  4/ We return either start position or NULL if needle never found.    */
+
 	int needle_found = 0;
 	char *needle_start;
 	char *searcher = haystack;
@@ -40,10 +27,17 @@ char *_strstr(char *haystack, char *needle)
 		{
 			needle_start = searcher;
 			/* Try and parse substring matching needle */
+			/* @note needs this exact order to avoid comparing EOL chars. */
 			for (i = 0; searcher[i] && searcher[i] == needle[i]; i++)
 			;
 			/* If success we should have needle[i] being EOL char. */
-			needle_found = (needle[i] == '\0');
+			/* @warning DO NOT forget to reset search if we didn't fully match */
+			/*   as the needle may be there just with an "offet" */
+			/* Exemple needle "allo", string "ahloaaaaaalloooooo ?". */
+			if (needle[i] == '\0')
+				needle_found = 1;
+			else
+				searcher = needle_start;
 		}
 		/* Using the automatic conversion int -> truthy value -> int) */
 		searcher += (!needle_found);
@@ -51,3 +45,19 @@ char *_strstr(char *haystack, char *needle)
 
 	return ((needle_found) ? needle_start : NULL);
 }
+
+/* ======================== ALGORITHM DETAIL =========================== */
+/* This time we want to get a full string so, while parsing haystack...  */
+/* We must FIRST find the occurence of the first character of needle.    */
+/* IF/WHEN we find it...                                                 */
+/*  1/ we "save" that "start position" in case we actually found needle  */
+/*     (easiest way mechanically is using offset target so FOR loop)     */
+/*  2/ we try to have an exact match by comparing from current pos       */
+/*        each character with matching pos in needle...                  */
+/*     Case a) We find different character in next position              */
+/*          -> we break inner loop and resume FROM WHERE WE WERE.        */
+/*     Case b) AS SOON AS WE FOUND the WHOLE sequence                    */
+/*          -> We set state "needle_found" and stop inner loop.          */
+/*  3/ Primary loop must stop when whichever comes first between         */
+/*     End of haystack traversal OR "needle_found" (== 1);               */
+/*  4/ We return either start position or NULL if needle never found.    */
