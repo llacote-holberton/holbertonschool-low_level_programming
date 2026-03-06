@@ -20,7 +20,7 @@ int main(void)
 
 	/* Expected NULL */
 	absent = _strpbrk(s, accept);
-	printf("%s\n", absent);
+	printf("%s\n", absent ? absent : "NULL");
 
 	return (0);
 }
