@@ -60,5 +60,5 @@ char *_strstr(char *haystack, char *needle);
 /* R3 - Exo 06 */
 void print_chessboard(char (*a)[8]);
 /* R3 - Exo 07 */
-
+void print_diagsums(int *a, int size);
 #endif
