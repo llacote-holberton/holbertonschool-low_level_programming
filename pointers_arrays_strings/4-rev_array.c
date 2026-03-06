@@ -30,7 +30,7 @@ void reverse_array(int *a, int n)
 	 *   since we swap "start and end" in same array
 	 *   we actually have "length / 2" cycles to run
 	 */
-	for (i = 0; i <= n / 2; i++)
+	for (i = 0; i < n / 2; i++)
 	{
 		placeholder = a[i];
 		/* @warning never forget the difference */
