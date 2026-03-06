@@ -56,7 +56,7 @@ unsigned int _strspn(char *s, char *accept);
 /* R3 - Exo 04 */
 char *_strpbrk(char *s, char *accept);
 /* R3 - Exo 05 */
-
+char *_strstr(char *haystack, char *needle);
 /* R3 - Exo 06 */
 
 /* R3 - Exo 07 */
