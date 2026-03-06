@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * char _strcmp - compares two strings.
+ * _strcmp - compares two strings.
  * @s1: pointer to an array of char (string)
  * @s2: pointer to an array of char (string)
  *
@@ -10,7 +10,7 @@
  *   of the first "non-identical pair"
  *   (implying negative is 1st shorter length,
  *    0 if fully identical, positive if 2nd shorter).
- * Returns: integer which is ASCII value difference.
+ * Return: integer which is ASCII value difference.
  */
 int _strcmp(char *s1, char *s2)
 {
