@@ -34,29 +34,22 @@ int main(int argc, char *argv[])
 	int c; /* Character comparator index */
 
 	if (argc - 1 == 0) /* No need to do anything if no args */
-	{
 		printf("0\n");
-	}
 	else
 	{
 		for (i = 1; error_found == 0 && i < argc; i++)
 		{ /* MUST check first if there is any string to parse */
-			if (argv[i][0] == '\0') /* "Empty" string is NOT a digit */
-				error_found = 1;
-			/* Need to check characters of each argument and break */
-			/* as soon as we get a non-digit */
-			else
+			for (c = 0; argv[i][c] != '\0'; c++)
 			{
-				for (c = 0; argv[i][c] != '\0'; c++)
+				/* Should we allow negative numbers??? */
+				if (argv[i][c] < '0' || argv[i][c] > '9')
 				{
-					/* Should we allow negative numbers??? */
-					if (argv[i][c] < '0' || argv[i][c] > '9')
-					{
-						error_found = 1;
-						break;
-					}
+					error_found = 1;
+					break;
 				}
 			}
+			if (c == 0) /* Still 0 means for failed before single run */
+				error_found = 1;
 			if (!error_found)
 				sum_result += atoi(argv[i]);
 		}
