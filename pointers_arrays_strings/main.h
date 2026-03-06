@@ -52,7 +52,7 @@ char *_memcpy(char *dest, char *src, unsigned int n);
 /* R3 - Exo 02 */
 char *_strchr(char *s, char c);
 /* R3 - Exo 03 */
-
+unsigned int _strspn(char *s, char *accept);
 /* R3 - Exo 04 */
 
 /* R3 - Exo 05 */
