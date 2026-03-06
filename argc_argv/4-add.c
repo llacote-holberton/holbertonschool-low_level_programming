@@ -10,7 +10,7 @@
  *   program call and prints the result.
  *   Warns of error if program does not receive
  *     exactly two integer numbers.
- * Return: always 0 (success).
+ * Return: 0 (success) or 1 (error).
  *
  * @note we assume that user input will respect intended type
  *   aka signed number.
@@ -33,17 +33,15 @@ int main(int argc, char *argv[])
 	int i; /* Argument index */
 	int c; /* Character comparator index */
 
-	/* I'd like to make an array of int to directly   */
-	/*   convert and store each "validated parameter" */
-	/*   but not confident enough yet. I'll try once  */
-	/*   I have a "passing solution". */
-
 	/* We start with all guard clauses */
-	if (argc - 1 > 0) /* No need to do anything if no args */
+	if (argc - 1 == 0) /* No need to do anything if no args */
+	{
+		printf("0\n");
+	}
+	else
 	{
 		for (i = 1; error_found == 0 && i < argc; i++)
 		{
-			printf("Checking argument %s\n", argv[i]);
 			/* Need to check characters of each argument and break */
 			/* as soon as we get a non-digit */
 			for (c = 0; argv[i][c] != '\0'; c++)
@@ -57,14 +55,21 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	if (error_found || argc - 1 == 0)
-		printf("0\n");
-	else
+	if (error_found)
+	{
+		printf("Error\n");
+		return (1);
+	}
+		else
 	{
 		for (i = 1; i < argc; i++)
 			sum_result += atoi(argv[i]);
 		printf("%d\n", sum_result);
 	}
-
 		return (0);
 }
+
+/* I'd like to make an array of int to directly   */
+/*   convert and store each "validated parameter" */
+/*   but not confident enough yet. I'll try once  */
+/*   I have a "passing solution". */
