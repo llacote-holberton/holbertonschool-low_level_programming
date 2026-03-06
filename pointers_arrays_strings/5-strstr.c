@@ -21,6 +21,10 @@ char *_strstr(char *haystack, char *needle)
 	/* Iterator: inner loop index (comparing substring with needle). */
 	int i;
 
+	/* I guess this should be covered */
+	if (*needle == '\0' || needle == NULL)
+		return (haystack);
+
 	while (!needle_found && *searcher)
 	{
 		if (*searcher == *needle)
