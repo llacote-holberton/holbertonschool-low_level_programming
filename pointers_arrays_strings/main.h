@@ -54,7 +54,7 @@ char *_strchr(char *s, char c);
 /* R3 - Exo 03 */
 unsigned int _strspn(char *s, char *accept);
 /* R3 - Exo 04 */
-
+char *_strpbrk(char *s, char *accept);
 /* R3 - Exo 05 */
 
 /* R3 - Exo 06 */
