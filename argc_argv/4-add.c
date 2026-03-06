@@ -33,7 +33,6 @@ int main(int argc, char *argv[])
 	int i; /* Argument index */
 	int c; /* Character comparator index */
 
-	/* We start with all guard clauses */
 	if (argc - 1 == 0) /* No need to do anything if no args */
 	{
 		printf("0\n");
@@ -42,6 +41,9 @@ int main(int argc, char *argv[])
 	{
 		for (i = 1; error_found == 0 && i < argc; i++)
 		{
+			/* MUST check first if there is any string to parse */
+			if(argv[i][0] == '\0') /* "Empty" string is NOT a digit */
+				error_found = 1;
 			/* Need to check characters of each argument and break */
 			/* as soon as we get a non-digit */
 			for (c = 0; argv[i][c] != '\0'; c++)
