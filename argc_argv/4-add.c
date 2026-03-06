@@ -50,11 +50,11 @@ int main(int argc, char *argv[])
 			if (!error_found)
 				sum_result += atoi(argv[i]);
 		}
+		if (error_found)
+			printf("Error\n");
+		else
+			printf("%d\n", sum_result);
 	}
-	if (error_found)
-		printf("Error\n");
-	else
-		printf("%d\n", sum_result);
 
 	return (error_found);
 }
