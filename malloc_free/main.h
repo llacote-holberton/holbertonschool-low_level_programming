@@ -8,7 +8,7 @@ char *create_array(unsigned int size, char c);
 /* Ma+Fr - R1 - Exo 01 - 1-strdup.c */
 char *_strdup(char *str);
 /* Ma+Fr - R1 - Exo 02 -  */
-
+char *str_concat(char *s1, char *s2);
 /* Ma+Fr - R1 - Exo 03 -  */
 
 /* Ma+Fr - R1 - Exo 04 -  */
