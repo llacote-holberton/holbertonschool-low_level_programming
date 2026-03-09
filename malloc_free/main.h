@@ -10,7 +10,7 @@ char *_strdup(char *str);
 /* Ma+Fr - R1 - Exo 02 -  */
 char *str_concat(char *s1, char *s2);
 /* Ma+Fr - R1 - Exo 03 -  */
-
+int **alloc_grid(int width, int height);
 /* Ma+Fr - R1 - Exo 04 -  */
 
 
