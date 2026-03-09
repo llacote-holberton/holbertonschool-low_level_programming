@@ -5,8 +5,8 @@
 int _putchar(char c);
 /* Ma+Fr - R1 - Exo 00 - 0-isupper.c */
 char *create_array(unsigned int size, char c);
-/* Ma+Fr - R1 - Exo 01 -  */
-
+/* Ma+Fr - R1 - Exo 01 - 1-strdup.c */
+char *_strdup(char *str);
 /* Ma+Fr - R1 - Exo 02 -  */
 
 /* Ma+Fr - R1 - Exo 03 -  */
