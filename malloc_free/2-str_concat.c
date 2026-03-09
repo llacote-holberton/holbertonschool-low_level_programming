@@ -1,64 +1,62 @@
 #include "main.h"
 #include <stdlib.h>
 /* @Comment before commit */
- #include <stdio.h> 
+/* #include <stdio.h> */
 
 /**
  * str_concat - concatenates two strings cleanly.
  * @s1: string to append upon (pointer to array of char)
  * @s2: string to "attach after" (pointer to array of char)
- * 
+ *
  * Description: Cleanly concatenates two strings
  *   by "resetting" the EOL properly to make one string.
- * NOTE: NULL should be treated as empty string.
  * Return: pointer to array or NULL if fails.
+ *
+ * ADDITIONAL NOTES:
+ *   a) NULL should be treated as empty string.
+ *   b) Function still assumes that strings
+ *        are properly terminated.
  */
 char *str_concat(char *s1, char *s2)
 {
-
 	/* Reusable iterator to parse s1 and s2 (count then copy) */
-	int i;
-	/* Total length including EOL */
+	int i = 0;
+	/* Total length WITHOUT EOL (added on the fly in malloc). */
 	int fused_length = 0;
 	/* Append process index */
 	int appender;
 	/* Pointer to created fusion */
 	char *fused_string;
 
-	/* Fist we get length of both strings */
-	/* @fixme add guard clauses for s1 or s2 equals NULL */
-	/* Note that I still assume that its are properly terminated. */
-	for (i = 0; s1[i] != '\0'; i++)
-		fused_length++;
-	printf("S1 is '%s' \n of length WITHOUT EOL %d. \n", s1, fused_length); 
-	/* This time I use variant to include the EOL. */
-	for (i = 0; s2[i++] != '\0';)
-		fused_length++;
-	printf("S2 is '%s' \n of length WIT EOL %d. \n", s2, i); 
-	printf("Total length of fused string with EOL is %d. \n", fused_length); 
-	
+	if (s1 != NULL)
+		for (i = 0; s1[i] != '\0'; i++)
+			fused_length++;
+	if (s2 != NULL)
+		for (i = 0; s2[i] != '\0'; i++)
+			fused_length++;
+
 	if (fused_length == 0)
 		fused_string = NULL;
-	else
-		fused_string = (char *)malloc(fused_length * (sizeof(char)));
+	else /* Adding one to account for the EOL to append at the end. */
+		fused_string = (char *)malloc((fused_length + 1) * (sizeof(char)));
 	if (fused_string != NULL)
 	{
 		appender = 0;
 		for (i = 0; s1[i] != '\0'; i++)
 		{
-			printf("Printing character %c at fused pos %d \n", s1[i], appender);
 			fused_string[appender] = s1[i];
 			appender++;
 		}
-		printf("Current state of fused_string: %s.\n", fused_string);
 		for (i = 0; s2[i] != '\0';)
 		{
-			printf("Printing character %c at fused pos %d \n", s2[i], appender);
+			/* printf("Printing character %c at fused pos %d \n", s2[i], appender); */
 			fused_string[appender] = s2[i];
 			appender++;
 			i++;
 		}
-		printf("Final state of fused_string: %s.\n", fused_string);
+		/* Finishing fused string properly. */
+		fused_string[appender] = '\0';
+		/* printf("Final state of fused_string: %s.\n", fused_string); */
 	}
 	return (fused_string);
 }
