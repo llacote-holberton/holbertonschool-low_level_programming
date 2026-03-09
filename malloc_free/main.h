@@ -3,6 +3,16 @@
 
 /* Externally provided function defined in _putchar.c */
 int _putchar(char c);
+/* Ma+Fr - R1 - Exo 00 - 0-isupper.c */
+char *create_array(unsigned int size, char c);
+/* Ma+Fr - R1 - Exo 01 -  */
+
+/* Ma+Fr - R1 - Exo 02 -  */
+
+/* Ma+Fr - R1 - Exo 03 -  */
+
+/* Ma+Fr - R1 - Exo 04 -  */
+
 
 
 #endif
