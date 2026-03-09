@@ -30,11 +30,13 @@ int **alloc_grid(int width, int height)
 	/*   as it avoids the problem of "partial success". */
 	data_area = (int *)malloc(height * width * sizeof(int));
 	if (data_area == NULL)
+	{
+		free(integers_table);
 		return (NULL);
+	}
 
 	for (i = 0; i < height; i++)
 	{
-		/* The "data_area" is up for grab. */
 		/* The i is used to jump "from one line to another" as we */
 		/*   keep a contiguous "block" for each row of numbers. */
 		/* STILL DOESN'T WORK as we didn't "affect pointers" on columns */
