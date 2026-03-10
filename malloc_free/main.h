@@ -12,7 +12,7 @@ char *str_concat(char *s1, char *s2);
 /* Ma+Fr - R1 - Exo 03 -  */
 int **alloc_grid(int width, int height);
 /* Ma+Fr - R1 - Exo 04 -  */
-
+void free_grid(int **grid, int height);
 
 
 #endif
