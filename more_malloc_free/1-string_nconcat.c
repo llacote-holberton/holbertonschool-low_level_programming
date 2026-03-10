@@ -25,7 +25,7 @@
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
 	/* Size for concatenation */
-	unsigned int concat_string_length = 0;
+	unsigned int total_length_without_EOL = 0;
 	/* String created from concat. */
 	char *concatenated_string;
 	/* Cursor dedicated to copy/concat */
@@ -34,38 +34,44 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 	unsigned int s1_length = 0;
 	/* We actually also need s2 length in fact, I think,   */
 	/*   so we know if we have or not to manually add EOL. */
-	unsigned int s2_length_including_EOL = 0;
+	unsigned int s2_length = 0;
 	/* Reusable generic iterator. */
 	unsigned int i;
 
-	if (n == 0)
-	{
-		concatenated_string = s1;
-		return concatenated_string;
-	}
+	/* Covering NULL strings corner case, by        */
+	/*   affecting them "empty" strings on the fly. */
+	if (s1 == NULL)
+		s1 = "";
+	if (s2 == NULL)
+		s2 = "";
+
 	/* First we must know length of first string WITHOUT EOL */
 	/*  so we can deduce total space to reserve by adding n. */
-	/* Does it work with NULL string? */
-	if (s1 != NULL)
-		while (s1[++s1_length])
+	/* WRONG!! As the condition is evaluated BEFORE increment */
+	/*   BUT DOESN'T BLOCK IT since increment is "within" it! */
+	/* So it would "count the EOL" and we don't want it. */
+	/*while (s1[s1_length++] != '\0'); */
+	/* With a FOR the condition is evaluated separately         */
+	/*   and the increment comes AFTER the "for body" is parsed */
+	/*   so since for "" the condition is FALSE immediately     */
+	/*   we stop the loop before even the first increment.      */
+	for (s1_length = 0; s1[s1_length] != '\0'; s1_length++)
 		;
-	if(s2 != NULL)
-		while (s2[s2_length_including_EOL++])
-		;
-	/* @remove before commit */
-	printf("Number of chars to copy is %d.\n", n);
-	printf("Source string s1 is: %s \n", s1);
-	printf("  and its length WITHOUT EOL is %d. \n", s1_length);
-	printf("Source string s2 is: %s \n", s2);
-	printf("  and its length WITH EOL is %d. \n", s2_length_including_EOL);
-
-	/* realloc is forbidden so we use malloc to make full copy. */
-	concat_string_length = (n < s2_length_including_EOL) 
-		? s1_length + n + 1 
-		: s1_length + s2_length_including_EOL
+	/* OR we can just make a "regular while" */
+	while (s2[s2_length] != '\0') 
+		s2_length++;
+	
+	
+	/* realloc is forbidden so we use malloc to make full copy.   */
+	/* n is given by copy so we can modify it without scrupules.  */
+	/* "Adjusting it" to set a hard limit avoiding later problems */
+	/*   if "initial n" > s2.length (writing "beyond s2 EOL").    */
+	n = (n < s2_length) ? n : s2_length;
+	total_length_without_EOL = s1_length + n;
 	;
-	printf("Contact String length is %d.\n", concat_string_length);
-	concatenated_string = (char *)malloc(concat_string_length * sizeof(char));
+	printf("\n\nS1 is: %s with length %d\nS2 is: %s with length %d\n, N chars to copy is: %d\n", s1, s1_length, s2, s2_length, n);
+	printf("Concat String length is %d.\n", total_length_without_EOL);
+	concatenated_string = (char *)malloc(total_length_without_EOL * sizeof(char));
 
 	for (i = 0; s1[i] != '\0'; i++)
 	{
@@ -73,17 +79,17 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 		cp_idx++;
 	}
 	/* Tried to do something smart and failed miserably. xd */
-	/* while (cp_idx < concat_string_length) */
-	/* concatenated_string[cp_idx] = s2[cp_idx - concat_string_length]; */
+	/* while (cp_idx < total_length_without_EOL) */
+	/* concatenated_string[cp_idx] = s2[cp_idx - total_length_without_EOL]; */
 	for (i = 0; i < n; i++)
 	{
-		printf("S2 index should be %d \n", concat_string_length - cp_idx);
 		concatenated_string[cp_idx] = s2[i];
-		/* concatenated_string[cp_idx] = s2[cp_idx - concat_string_length]; */
+		/* concatenated_string[cp_idx] = s2[cp_idx - total_length_without_EOL]; */
 		cp_idx++;
 	}
 	/* We "reaffect" since it's not a problem even if it was affected. */
 	concatenated_string[cp_idx] = '\0';
-
+	printf("Final string is %s with length including EOL %d\n\n", concatenated_string, cp_idx);
+	
 	return concatenated_string;
 }

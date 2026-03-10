@@ -37,6 +37,7 @@ static int test_null_append(void)
 	char *concat_with_null_append;
 	char *standard = "I'm a string and I'm tight!";
 	size_t copy_length = (size_t)strlen(standard);
+	printf("In test_null_append copy_length is %ld.\n", copy_length);
 	concat_with_null_append = string_nconcat(standard, null_append, copy_length);
 	/* Technically bad practice because I must keep the variable until return */
 	/*   so I cannot free it beforehand? */
