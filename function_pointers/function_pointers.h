@@ -8,7 +8,7 @@ void print_name(char *name, void (*f)(char *));
 /* FnPtrs - Exo 01 */
 void array_iterator(int *array, size_t size, void (*action)(int));
 /* FnPtrs - Exo 02 */
-
+int int_index(int *array, int size, int (*cmp)(int));
 /* FnPtrs - Exo 03 */
 
 
