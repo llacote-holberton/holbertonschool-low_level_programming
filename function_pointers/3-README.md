@@ -8,13 +8,25 @@ You must have gcc installed.
 Compiling command is as follows.
 `gcc -Wall -pedantic -Werror -Wextra -std=gnu89 3-main.c 3-op_functions.c 3-get_op_func.c -o calc.out`
 
+# How to use
+Run the program by going into the folder where you compiled the executable then
+  type the program name followed by an integer, one of the supported operators
+  (+, -, '*', '/', '%') then another integer number, ending with <Enter>.
+Please pay attention to the following limitations.
+1. Only integer numbers are supported.
+2. Program expects exactly this syntax for its parameters:
+   integer1 operator integer 2 (so exactly 3 inputs).
+3. Only the aforementioned operators are supported.
+4. The operators *, / and % must be enclosed in simple quotes in order to
+   avoid their interpretation by your shell.
+
 # Source structure
 - 3-calc.h is the custom header holding all the functions prototypes and structures/types definitions.
 - 3-main.c is the primary entry point and "orchestrator" of the process.
-- 3-get_op_func.c is the "switch controller" which will determine which "command" to pass to the calculator. 
+- 3-get_op_func.c is the "switch controller" which will determine which "command" to pass to the calculator.
 - 3-op_functions.c is the file defining the actual arithmetic operations.
 
-# Instructions 
+# Project Instructions
 Write a program that performs simple operations.
 
 ## General instructions

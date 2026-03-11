@@ -41,7 +41,6 @@ int main(int argc, char **argv) /* could have written *argv[] */
 	num1 = atoi(argv[1]);
 	operator =  argv[2];
 	num2 = atoi(argv[3]);
-	printf("Expression provided: %d %s %d.\n", num1, operator, num2);
 
 	/* Stop if unsupported operation (unrecognized operator). */
 	operation = get_op_func(argv[2]);

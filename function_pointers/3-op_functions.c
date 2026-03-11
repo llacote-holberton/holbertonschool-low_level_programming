@@ -1,5 +1,4 @@
-/* This file should hold (only) the functions */
-/*   actually doing the arithmetic operations. */
+/* Confer 3-README.md for special directives. */
 
 /**
  * op_add - Returns sum of two provided integer addends.
@@ -50,8 +49,7 @@ int op_mul(int a, int b)
  */
 int op_div(int a, int b)
 {
-	/* @warning MUST BE TAKEN CARE OF "UPSTREAM" */
-	/*   (in get_op_func) as... */
+	/* @warning MUST BE TAKEN CARE OF "UPSTREAM" in main as... */
 	/* Directives impose program to return NULL then exit */
 	/* BUT we declare prototype as returning int */
 	/* BUT NULL is not int it's void. */
@@ -69,7 +67,6 @@ int op_div(int a, int b)
  */
 int op_mod(int a, int b)
 {
-	/* Confer above comment */
-	/* if (b == 0) return (NULL); */
+	/* For b == 0, same as above */
 	return (a % b);
 }
