@@ -1,6 +1,6 @@
 #include <stdlib.h> /* Used for constants */
 #include <stdio.h>  /* Used for printing to user screen */
-#include <string.h> /* Used for string search and convertion */
+#include <string.h> /* Used for string search/compare/conversion */
 #include "3-calc.h" /* Calculator custom functions */
 
 /**
@@ -19,15 +19,15 @@
  */
 int main(int argc, char **argv) /* could have written *argv[] */
 {
+	char *error_msg = "Error\n";
 	/* @note could have used argv[x] directly but feels more readable */
 	/*   to use dedicated variables to hold provided arguments. */
 	int num1;
 	int num2;
-	char operator;
+	char *operator;
 	/*@ warning: parenthesis must include the * */
 	int (*operation)(int, int);
-	char *error_msg = "Error\n";
-	char *valid_operators = "-+*/%";
+	int result; /* not required since we just print but more readable. */
 
 	/* Stop immediately if number of arguments isn't exactly 4: */
 	/* program name "built-in" PLUS "actual arguments" being    */
@@ -38,25 +38,29 @@ int main(int argc, char **argv) /* could have written *argv[] */
 		exit(98);
 	}
 
-	/* Check operator is valid otherwise useless to pursue. */
-	/* Reminder: *argv[2] == argv[2][0] == **(argv + 2) giving CHAR */
-	/*   argv[2] == *(argv + 2) giving STRING */
-	operator = (char)argv[2][0]; /* Don't forget string is array itself! */
-	/* I find this cleaner than a if with chain of OR inside */
-	/* @warning re-reading directives: probably supposed to be done in get_op. */
-	if (strchr(valid_operators, operator) == NULL)
+	num1 = atoi(argv[1]);
+	operator =  argv[2];
+	num2 = atoi(argv[3]);
+	printf("Expression provided: %d %s %d.\n", num1, operator, num2);
+
+	/* Stop if unsupported operation (unrecognized operator). */
+	operation = get_op_func(argv[2]);
+	if (operation == NULL)
 	{
 		printf("%s", error_msg);
 		exit(99);
 	}
-	num1 = atoi(argv[1]);
-	num2 = atoi(argv[3]);
-	printf("Expression provided: %d %c %d.\n", num1, operator, num2);
 
-	/* Are left a) finding right function to call b) calling it    */
-	/* c) print result if ok, exit with right error codes if NULL. */
-	operation = get_op_func(argv[2]);
-	printf("Chosen operation is... %lu", (unsigned long)operation);
+	/* Stop if division by 0 */
+	/* @note: operator == "/" fails, using literals directly forbidden. */
+	if (num2 == 0 && (strcmp(operator, "/") == 0 || strcmp(operator, "%") == 0))
+	{
+		printf("%s", error_msg);
+		exit(100);
+	}
+	result = operation(num1, num2);
+	printf("%d\n", result);
+
 	return (0);
 }
 
