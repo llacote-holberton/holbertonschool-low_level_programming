@@ -4,7 +4,7 @@
 /* Externally provided function defined in _putchar.c */
 int _putchar(char c);
 /* FnPtrs - Exo 00 */
-
+void print_name(char *name, void (*f)(char *));
 /* FnPtrs - Exo 01 */
 
 /* FnPtrs - Exo 02 */
