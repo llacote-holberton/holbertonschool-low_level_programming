@@ -24,6 +24,8 @@ int main(int argc, char **argv) /* could have written *argv[] */
 	int num1;
 	int num2;
 	char operator;
+	/*@ warning: parenthesis must include the * */
+	int (*operation)(int, int);
 	char *error_msg = "Error\n";
 	char *valid_operators = "-+*/%";
 
@@ -53,7 +55,8 @@ int main(int argc, char **argv) /* could have written *argv[] */
 
 	/* Are left a) finding right function to call b) calling it    */
 	/* c) print result if ok, exit with right error codes if NULL. */
-
+	operation = get_op_func(argv[2]);
+	printf("Chosen operation is... %lu", (unsigned long)operation);
 	return (0);
 }
 
