@@ -15,7 +15,10 @@ struct dog
 	char  *owner;
 };
 
-/* C - Struct&Types - Exo 01*/
+/* C - Struct&Types - Exo 01 */
 void init_dog(struct dog *d, char *name, float age, char *owner);
+/* C - Struct&Types - Exo 02 */
+void print_dog(struct dog *d);
+
 
 #endif
