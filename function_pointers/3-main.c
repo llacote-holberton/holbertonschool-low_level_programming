@@ -1,6 +1,7 @@
 #include <stdlib.h> /* Used for constants */
 #include <stdio.h>  /* Used for printing to user screen */
 #include <string.h> /* Used for string search and convertion */
+#include "3-calc.h" /* Calculator custom functions */
 
 /**
  * main - Brain of the calculator program.
