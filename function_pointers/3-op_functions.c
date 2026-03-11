@@ -1,4 +1,5 @@
 /* Confer 3-README.md for special directives. */
+#include "3-calc.h"
 
 /**
  * op_add - Returns sum of two provided integer addends.
