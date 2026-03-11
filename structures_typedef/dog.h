@@ -8,12 +8,12 @@
  * @age:   float because we must be precise.
  * @owner: string for his best Human pal.
  */
-struct dog
+typedef struct dog
 {
 	char  *name;
 	float age;
 	char  *owner;
-};
+} dog_t;
 
 /* C - Struct&Types - Exo 01 */
 void init_dog(struct dog *d, char *name, float age, char *owner);
