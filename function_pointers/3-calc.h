@@ -1,7 +1,7 @@
 #ifndef CALC_H
 #define CALC_H
 
-/* ========== Structures ========== */
+/* ========== Structures and constants ========== */
 /**
  * struct op - Structure associating an "arithmetic operator" string
  *   (array of char) with a function dedicated to execute
@@ -15,6 +15,12 @@ typedef struct op
 	char *op;
 	int (*f)(int a, int b);
 } op_t;
+
+/* Could use enum but not sure if allowed and not familiar with. */
+/* Apparently all the "inner define" are included in the "global #ifnotdef" */
+#define ERROR__INVALID_NUMBER_OF_ARGUMENTS 98 /* @warning no end ';'. */
+#define ERROR__UNSUPPORTED_OPERATION       99
+#define ERROR__DIVISION_BY_ZERO           100
 
 /* ========== Functions ========== */
 

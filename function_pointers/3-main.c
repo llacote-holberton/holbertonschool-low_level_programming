@@ -35,7 +35,7 @@ int main(int argc, char **argv) /* could have written *argv[] */
 	if (argc != 4)
 	{
 		printf("%s", error_msg);
-		exit(98);
+		exit(ERROR__INVALID_NUMBER_OF_ARGUMENTS);
 	}
 
 	num1 = atoi(argv[1]);
@@ -48,7 +48,7 @@ int main(int argc, char **argv) /* could have written *argv[] */
 	if (operation == NULL)
 	{
 		printf("%s", error_msg);
-		exit(99);
+		exit(ERROR__UNSUPPORTED_OPERATION);
 	}
 
 	/* Stop if division by 0 */
@@ -56,7 +56,7 @@ int main(int argc, char **argv) /* could have written *argv[] */
 	if (num2 == 0 && (strcmp(operator, "/") == 0 || strcmp(operator, "%") == 0))
 	{
 		printf("%s", error_msg);
-		exit(100);
+		exit(ERROR__DIVISION_BY_ZERO);
 	}
 	result = operation(num1, num2);
 	printf("%d\n", result);
