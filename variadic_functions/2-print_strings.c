@@ -37,6 +37,7 @@ void print_strings(const char *separator, const unsigned int n, ...)
 			printf("%s", (separator != NULL && i < n) ? separator : "");
 			i++;
 		} while (i <= n);
+		va_end(string_components);
 	}
 	printf("\n");
 }
