@@ -8,6 +8,8 @@
  * Description: creates an incremental sequence of numbers
  *   from start to end, both outer bounds included.
  *
+ * Return: pointer to array of integers.
+ *
  * Additional information
  * - Sequence includes all nubmers (increment by 1).
  * - If min > max should return NULL.
