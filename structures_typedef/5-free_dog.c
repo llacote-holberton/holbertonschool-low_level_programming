@@ -14,12 +14,15 @@
  */
 void free_dog(dog_t *d)
 {
-	/* Must first free all data from "inner pointers". */
-	free(d->name);
-	free(d->owner);
-	/* Age is a float constant cannot be freed. */
-	/* free(d->age); */
+	if (d != NULL)
+	{
+		/* Must first free all data from "inner pointers". */
+		free(d->name);
+		free(d->owner);
+		/* Age is a float constant cannot be freed. */
+		/* free(d->age); */
 
-	/* We can finally free the struct itself. */
-	free(d);
+		/* We can finally free the struct itself. */
+		free(d);
+	}
 }
