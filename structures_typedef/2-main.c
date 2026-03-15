@@ -14,5 +14,12 @@ int main(void)
 	my_dog.age = 3.5;
 	my_dog.owner = "Bob";
 	print_dog(&my_dog);
+
+	/* Adding custom test */
+	my_dog.name = NULL;
+	my_dog.age = 777;
+	my_dog.owner = NULL;
+	print_dog(&my_dog);
+
 	return (0);
 }
