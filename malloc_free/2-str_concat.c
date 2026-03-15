@@ -28,17 +28,16 @@ char *str_concat(char *s1, char *s2)
 	/* Pointer to created fusion */
 	char *fused_string;
 
-	if (s1 != NULL)
-		for (i = 0; s1[i] != '\0'; i++)
-			fused_length++;
-	if (s2 != NULL)
-		for (i = 0; s2[i] != '\0'; i++)
-			fused_length++;
+	/* "Treat NULL as empty", not sure which syntax more readable. */
+	s1 = (s1 == NULL)  ? "" : s1;  /* Ternary syntax 1 */
+	s2 = (!s2)         ? "" : s2;  /* Ternary syntax 2 */
+	for (i = 0; s1[i] != '\0'; i++)
+		fused_length++;
+	for (i = 0; s2[i] != '\0'; i++)
+		fused_length++;
 
-	if (fused_length == 0)
-		fused_string = NULL;
-	else /* Adding one to account for the EOL to append at the end. */
-		fused_string = (char *)malloc((fused_length + 1) * (sizeof(char)));
+	/* Adding one to account for the EOL to append at the end. */
+	fused_string = (char *)malloc((fused_length + 1) * (sizeof(char)));
 	if (fused_string != NULL)
 	{
 		appender = 0;
@@ -62,6 +61,29 @@ char *str_concat(char *s1, char *s2)
 }
 
 /* ==== BRAINSTORM NOTES === */
+
+/* V1 DIDN'T PROPERLY COVER THE CASE "NULL should be treated as empty" */
+/* NOR did it cover the cases "both strings are empty from origin"     */
+/* Because I only counted length of s1 and s2 if not NULL              */
+/* BUT empty string is not "0 in length" it is 1 because of EOL char.  */
+/* So while my code technically covered the case s1 OR s2 is NULL      */
+/*  because...    */
+/*  a) With at least one non-NULL and non-empty fused_lenght ended >0  */
+/*  b) I counted length "without EOL" and added one manually for alloc */
+/* My code failed to cover properly empty strings and "NULL as empty"  */
+/*   when both provided strings were in either case. */
+/*
+ * if (s1 != NULL)
+ *   for (i = 0; s1[i] != '\0'; i++)                                  *
+ *     fused_length++;
+ * if (s2 != NULL)
+ *   for (i = 0; s2[i] != '\0'; i++)
+ *     fused_length++;
+ * if (fused_length == 0)
+ *   fused_string = NULL;
+ * else
+ *   fused_string = (char *)malloc((fused_length + 1) * (sizeof(char)));
+ */
 /* Dropped this because ultimately we have no use for */
 /*  those intermediate variables if all goes well. */
 /* Used to get length of string to append onto */

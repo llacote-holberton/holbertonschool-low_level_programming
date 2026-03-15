@@ -3,6 +3,76 @@
 #include <stdlib.h>
 /* Personal addition for "NULL" testing */
 #include <sys/resource.h>
+#include <string.h>
+
+/**
+ * test_empty_strings - checks that the new function
+ *   behaves as expected when giving empty string
+ *   (should work as it is a valid case).
+ * Return: Boolean like (0 is success).
+ */
+static int test_empty_strings(void)
+{
+	char *empty_s  = "";
+	char *filled_s = "I should be there.";
+	char *concat_s1_empty = str_concat(empty_s, filled_s);
+	char *concat_s2_empty = str_concat(filled_s, empty_s);
+	char *concat_all_empty = str_concat(empty_s, empty_s);
+
+	/* Test case failed, should have copied. */
+	if (concat_s1_empty == NULL || strcmp(concat_s1_empty, filled_s) != 0)
+	{
+		printf("Test concatenating with empty string as first parameter failed.\n");
+		return (1);
+	}
+	if (concat_s2_empty == NULL || strcmp(concat_s2_empty, filled_s) != 0)
+	{
+		printf("Test concatenating with empty string as second parameter failed.\n");
+		return (1);
+	}
+	if (concat_all_empty == NULL || strcmp(concat_all_empty, "") != 0)
+	{
+		printf("Test concatenating with only empty strings failed.\n");
+		return (1);
+	}
+	return (0);
+}
+
+/**
+ * test_null_source - checks that the new function
+ *   behaves as expected when giving "NULL" source
+ *   (should return NULL as well).
+ * Return: Boolean like (0 is success).
+ */
+static int test_null_source(void)
+{
+	char *null_s  = NULL;
+	char *filled_s = "I should be there.";
+	char *concat_s1_null = str_concat(null_s, filled_s);
+	char *concat_s2_null = str_concat(filled_s, null_s);
+	char *concat_all_null = str_concat(null_s, null_s);
+
+	/* Test case failed, should have copied. */
+	if (concat_s1_null == NULL || strcmp(concat_s1_null, filled_s) != 0)
+	{
+		printf("Test concatenating with NULL string as first parameter failed.\n");
+		return (1);
+	}
+	if (concat_s2_null == NULL || strcmp(concat_s2_null, filled_s) != 0)
+	{
+		printf("Test concatenating with NULL string as second parameter failed.\n");
+		return (1);
+	}
+	if (concat_all_null == NULL || strcmp(concat_all_null, "") != 0)
+	{
+		printf("Test concatenating with only NULL strings failed.\n");
+		return (1);
+	}
+	return (0);
+}
+
+
+
 
 /**
  * test_low_memory - checks that the new function
@@ -71,6 +141,8 @@ int main(void)
 	printf("%s\n", s);
 	free(s);
 
+	test_empty_strings();
+	test_null_source();
 	test_low_memory();
 
 	return (0);
