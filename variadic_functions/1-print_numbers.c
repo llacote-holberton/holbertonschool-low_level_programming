@@ -27,7 +27,10 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 	unsigned int i;
 
 	if (n == 0)
+	{
+		printf("\n");
 		return;
+	}
 
 	/* We must "start variadic parse" by giving last named argument */
 	va_start(numbers, n);
@@ -36,7 +39,7 @@ void print_numbers(const char *separator, const unsigned int n, ...)
 	{
 		/* Va_arg reads the next argument in list with provided type */
 		printf("%d", va_arg(numbers, int));
-		if (i <n && separator != NULL)
+		if (i < n && separator != NULL)
 			printf("%s", separator);
 	}
 	va_end(numbers);
