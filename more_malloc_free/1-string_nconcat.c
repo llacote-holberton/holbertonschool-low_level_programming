@@ -21,7 +21,7 @@
  */
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	unsigned int total_length_without_EOL = 0; /* Size for concatenation */
+	unsigned int total_length_with_EOL = 0; /* Size for concatenation */
 	char *concatenated_string;						/* String created from concat. */
 	unsigned int cp_idx = 0;					/* Cursor dedicated to copy/concat */
 	unsigned int s1_length = 0;								/* Source string's length. */
@@ -40,10 +40,13 @@ char *string_nconcat(char *s1, char *s2, unsigned int n)
 
 	/* Trimming n if greater than s2.length to avoid problems later. */
 	n = (n < s2_length) ? n : s2_length;
-	total_length_without_EOL = s1_length + n;
+	total_length_with_EOL = s1_length + n + 1;
 	;
 
-	concatenated_string = (char *)malloc(total_length_without_EOL * sizeof(char));
+	concatenated_string = (char *)malloc(total_length_with_EOL * sizeof(char));
+	if (concatenated_string == NULL)
+		return (NULL);
+
 	for (i = 0; s1[i] != '\0'; i++)
 	{ /* Recopying s1 without EOL */
 		concatenated_string[cp_idx] = s1[i];
