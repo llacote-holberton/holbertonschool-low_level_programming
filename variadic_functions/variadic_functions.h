@@ -4,7 +4,7 @@
 /* Externally provided replacement for putchar. */
 int _putchar(char c);
 /* C - VarFuncs - Exo 00 */
-
+int sum_them_all(const unsigned int n, ...);
 /* C - VarFuncs - Exo 01 */
 
 /* C - VarFuncs - Exo 02 */
