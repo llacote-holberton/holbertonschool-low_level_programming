@@ -29,6 +29,15 @@ static char *copy_string(char *source)
 
 	for (i = 0; i < length; i++)
 		copy[i] = source[i];
+	/* Do NOT forget the EOL char dammit. xd */
+	/* Note that I could have instead made the condition */
+	/* i <= length (this was actually my original plan ) */
+	/* before I entirely forgot the EOL) BUT this means  */
+	/* that this function relies on original string to   */
+	/* be properly terminated. This under is more robust */
+	/* although in this specific context it should be    */
+	/* overall equally safe both ways. */
+	copy[i] = '\0';
 
 	return (copy);
 }
