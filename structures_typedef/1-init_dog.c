@@ -15,17 +15,28 @@
  */
 void init_dog(struct dog *d, char *name, float age, char *owner)
 {
-	/* Mixing up the two ways of accessing a struct member  */
-	/*   on purpose to show both work and their own syntax. */
-
-	/* Using the "raw" syntax we must use parenthesis to force */
-	/* the dereference symbol to apply ONLY to the pointer itself.  */
-	/* Otherwise with the priority order, the "member access" is    */
-	/*   "applied first" in the evaluation thus program understands */
-	/*   it should try to dereference "dog.name" which doesn't work.*/
-	(*d).name = name;
-	/* That is why C provides a shorter and simpler, dedicated syntax. */
-	/* Which therefore ONLY works "from pointers". */
-	d->age = age;
-	d->owner = owner;
+	if (d != NULL)
+	{
+		/* Mixing up the two ways of accessing a struct member  */
+		/*   on purpose to show both work and their own syntax. */
+		/* First affectation is using "Strict" syntax, while    */
+		/*   the others use the "official short-hand" one.      */
+		(*d).name = name;
+		d->age = age;
+		d->owner = owner;
+	}
 }
+
+/* ==== SELF-TEACHING NOTES ==== */
+/* Mixing up the two ways of accessing a struct member  */
+/*   on purpose to show both work and their own syntax. */
+/* Using the "raw" syntax we must use parenthesis to force */
+/* the dereference symbol to apply ONLY to the pointer itself.  */
+/* Otherwise with the priority order, the "member access" is    */
+/*   "applied first" in the evaluation thus program understands */
+/*   it should try to dereference "dog.name" which doesn't work.*/
+/* (*d).name = name; */
+/* That is why C provides a shorter and simpler, dedicated syntax. */
+/* Which therefore ONLY works "from pointers". */
+/* d->age = age;     */
+/* d->owner = owner; */
