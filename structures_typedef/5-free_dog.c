@@ -1,9 +1,8 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "dog.h"
 
 /**
- * print_dog - frees the given dog.
+ * free_dog - frees the given dog.
  * @d: pointer to dog struct.
  *
  * Description: "frees" the given dog
