@@ -34,7 +34,7 @@ static char *copy_string(char *source)
 }
 
 /**
- * print_dog - prints a dog's information.
+ * new_dog - prints a dog's information.
  * @name: string for dog name.
  * @age: float for its age.
  * @owner: string for his best Human friend.
