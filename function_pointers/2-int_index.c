@@ -37,7 +37,9 @@ int int_index(int *array, int size, int (*cmp)(int))
 	/*   which guarantee passing 0 or negative on failure. */
 	while (match_idx < size)
 	{
-		if (cmp(array[match_idx]) > 0)
+		/* Apparently this is wrong we have to cover case of */
+		/*   comparison function returning negative value.   */
+		if (cmp(array[match_idx]) != 0)
 			return (match_idx);
 		match_idx++;
 	}
