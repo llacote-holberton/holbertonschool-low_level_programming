@@ -17,7 +17,7 @@ int **alloc_grid(int width, int height)
 	int *data_area;
 	int i, j; /* Filler iterators */
 	/* Guard clause because invalid "input" for process. */
-	if (!(width > 0) || !(height > 0))
+	if (width <= 0 || height <= 0)
 		return (NULL);
 
 	/* Initializing the first dimension which is "height"! */
