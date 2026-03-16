@@ -2,31 +2,51 @@
 #include <stdio.h>  /* Required for printf. */
 #include "variadic_functions.h"
 
-/* Static keyword only applies to "storage" aka actual variables. */
-struct printers 
-{
-	char id;
-	/* Reminder: specific syntax to signal pointer to FUNCTION*/
-	/* ALSO DON'T FORGET THE RETURN TYPE!! */
-	/* AND the parameters (probably pointer to va_list ?) */
-	/* NOTE: specifically for va_list the syntax "va_list *" */
-	/* is NOT expected as it is handled in a custom way.  */
-	/* Passing "by value" creates a copy of the inner pointers */
-	/*   but not of the whole list. */
-	/* It could be useful to explicitely pass "by pointer" ONLY */
-	/* If we wanted to ensure that the caller gets the "updated pointer". */
-	void (*printer)(va_list);
-};
-
 /**
  * print_character - Prints a single character
  *   reading the next variadic parameter of given list.
+ * @print_components: variadic list to pick component from.
  */
 void print_character(va_list print_components)
 {
 	/* @warning: 'char' and 'short' are "promoted" to int type */
 	/*   when read through va_arg, so need to be re-converted. */
 	printf("%c", (char)va_arg(print_components, int));
+}
+
+/**
+ * print_integer - Prints a single integer number
+ *   reading the next variadic parameter of given list.
+ * @print_components: variadic list to pick component from.
+ */
+void print_integer(va_list print_components)
+{
+	printf("%d", va_arg(print_components, int));
+}
+
+/**
+ * print_float - Prints a single float number
+ *   reading the next variadic parameter of given list.
+ * @print_components: variadic list to pick component from.
+ */
+void print_float(va_list print_components)
+{
+	/* @warning: 'float' is "promoted" to double type */
+	/*   when read through va_arg AND printf can use it with %f */
+	/*   SO contrarily to previous case this time we "follow" it. */
+	printf("%f", va_arg(print_components, double));
+}
+
+/**
+ * print_string - Prints a single string
+ *   reading the next variadic parameter of given list.
+ * @print_components: variadic list to pick component from.
+ */
+void print_string(va_list print_components)
+{
+	/* @warning: 'char' and 'short' are "promoted" to int type */
+	/*   when read through va_arg, so need to be re-converted. */
+	printf("%s", va_arg(print_components, char *));
 }
 
 /**
@@ -55,38 +75,38 @@ void print_all(const char * const format, ...)
 {
 	/* Variadic list of components */
 	va_list print_components;
-	/* Format iterator */
-	int cursor;
+	int f; /* Format iterator */
+	int p; /* Printers parser */
 
-	struct printers supported_printers[1] = {
-		{'c', print_character}
+	P supported_printers[5] = {
+		{'c', print_character},
+		{'i', print_integer},
+		{'f', print_float},
+		{'s', print_string},
+		{'\0', NULL}
 	};
 
 	/* Not explicit in directives but logical to me */
 	if (format != NULL)
 	{
-
 		va_start(print_components, format);
-		/* While we have a character in format, AND  */
-		/*   it matches an allowed formatter, THEN   */
-		/*   we read and print the matching argument */
-		cursor = 0;
-		while (format[cursor] != '\0')
+		f = 0;
+		while (format[f] != '\0')
 		{
-			if (format[cursor] == 'c')
-				supported_printers[0].printer(print_components);
-			/*
-			 * a = 0;
-			 * while (allowed_formatters[a] != '\0')
-			 * {
-			 *   if (format[cursor] == allowed_formatters[a])
-			 *   {
-			 *     break;
-			 *   }
-			 * a++;
-			 * }
-			 */
-			cursor++;
+			p = 0;
+			/* while p < 4 BAAAD */
+			/* Another alternative: calculating size of printers with sizeof. */
+			while (supported_printers[p].id != '\0')
+			{
+				if (format[f] == supported_printers[p].id)
+				{
+					printf("%s", (f != 0) ? ", " : "");					
+					supported_printers[p].printer(print_components);
+					break;
+				}
+				p++;
+			}
+			f++;
 		}
 		printf("\n");
 	}
