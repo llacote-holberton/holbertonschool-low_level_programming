@@ -21,7 +21,7 @@ int main(void)
 	print_all("xyz", "Ryo Saeba", "City Hunter");
 
 	printf("\nTest long mixed sequence\n");
-	print_all("ssisf", "Devil's number", "is supposedly", 666, "and his riches are", 56.764);
+	print_all("ssisf", "Devil's n°", "is supposedly", 666, "fortune is", 56.764);
 
 	printf("\nTest wrong association, inverted ones\n");
 	print_all("is", "Lucky number", 777);
