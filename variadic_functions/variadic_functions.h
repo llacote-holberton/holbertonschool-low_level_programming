@@ -10,5 +10,5 @@ void print_numbers(const char *separator, const unsigned int n, ...);
 /* C - VarFuncs - Exo 02 */
 void print_strings(const char *separator, const unsigned int n, ...);
 /* C - VarFuncs - Exo 03 */
-
+void print_all(const char * const format, ...);
 #endif
