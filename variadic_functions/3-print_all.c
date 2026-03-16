@@ -90,28 +90,30 @@ void print_all(const char * const format, ...)
 		{'\0', NULL}
 	};
 
-	va_start(print_components, format);
-	f = 0;
-	while (format[f] != '\0')
+	/* Not explicit in directives but logical to me */
+	if (format != NULL)
 	{
-		p = 0;
-		/* while p < 4 BAAAD */
-		/* Another alternative: calculating size of printers with sizeof. */
-		while (supported_printers[p].id != '\0')
+		va_start(print_components, format);
+		f = 0;
+		while (format[f] != '\0')
 		{
-			if (format[f] == supported_printers[p].id)
+			p = 0;
+			/* while p < 4 BAAAD */
+			/* Another alternative: calculating size of printers with sizeof. */
+			while (supported_printers[p].id != '\0')
 			{
-				if (f != 0)
-					printf(", ");
-				supported_printers[p].printer(print_components);
-				break;
+				if (format[f] == supported_printers[p].id)
+				{
+					printf("%s", (f != 0) ? ", " : "");					
+					supported_printers[p].printer(print_components);
+					break;
+				}
+				p++;
 			}
-			p++;
+			f++;
 		}
-		f++;
+		printf("\n");
 	}
-	printf("\n");
-
 }
 
 /* ==== BRAINSTORM AND SELF-TEACHING NOTES ==== */
