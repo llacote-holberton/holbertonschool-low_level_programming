@@ -13,7 +13,9 @@ void _print_rev_recursion(char *s)
 	/* Stating first the "last case" with its associated process. */
 	if (*s == '\0')
 	{
-		_putchar('\n');
+		/* @warning BAD because means it's put "on top of the recursion stack" */
+		/*   so will be printed before everything else (first "depiled").      */
+		/* _putchar('\n'); */
 		/* DO NOT forget to "break" otherwise the program would pursue */
 		return;
 	}
@@ -22,6 +24,15 @@ void _print_rev_recursion(char *s)
 	/* @warning: s++ made infinite recursion (logically). */
 	_print_rev_recursion(s + 1);
 	_putchar(*s);
+	/* @warning CANNOT WORK, logically, since we return just before. */
+	/* if(*s == '\0')    */
+	/*   _putchar('\n'); */
+	/* So the neat devious trick is to check "the cell after current". */
+	/*   That way we "add" the '\n AFTER all the recursive calls BUT  */
+	/* BEFORE unpiling so it will end last as expected. */
+	/* ACTUALLY DOESN'T WORK EITHER IT TRUNCATES OUTPUT. */
+	/* if (s[1] == '\0')*/
+	/* _putchar('\n'); */
 }
 
 /* === BRAINSTORM AND SELF-TEACHING NOTES === */
