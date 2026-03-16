@@ -44,9 +44,13 @@ void print_float(va_list print_components)
  */
 void print_string(va_list print_components)
 {
+	char *s_component;
 	/* @warning: 'char' and 'short' are "promoted" to int type */
 	/*   when read through va_arg, so need to be re-converted. */
-	printf("%s", va_arg(print_components, char *));
+	s_component = va_arg(print_components, char *);
+	if (s_component == NULL)
+		s_component = "nil";
+	printf("%s", s_component);
 }
 
 /**
