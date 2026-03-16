@@ -81,6 +81,7 @@ void print_all(const char * const format, ...)
 	va_list print_components;
 	int f; /* Format iterator */
 	int p; /* Printers parser */
+	char *separator;
 
 	P supported_printers[5] = {
 		{'c', print_character},
@@ -92,7 +93,10 @@ void print_all(const char * const format, ...)
 
 	va_start(print_components, format);
 	f = 0;
-	while (format[f] != '\0')
+	/* Only way to avoid "the third if" is to use variable */
+	/*   and put it "empty" for the "first print" then change. */
+	separator = "";
+	while (format && format[f] != '\0')
 	{
 		p = 0;
 		/* while p < 4 BAAAD */
@@ -101,9 +105,10 @@ void print_all(const char * const format, ...)
 		{
 			if (format[f] == supported_printers[p].id)
 			{
-				if (f != 0)
-					printf(", ");
+				/* First time will be empty afterwards will be as required. */
+				printf("%s", separator);
 				supported_printers[p].printer(print_components);
+				separator = ", ";
 				break;
 			}
 			p++;
