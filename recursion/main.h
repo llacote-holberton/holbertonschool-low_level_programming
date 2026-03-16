@@ -7,7 +7,7 @@ int _putchar(char c);
 /* Recursion - Exo 00 */
 void _puts_recursion(char *s);
 /* Recursion - Exo 01 */
-
+void _print_rev_recursion(char *s);
 /* Recursion - Exo 02 */
 
 /* Recursion - Exo 03 */
