@@ -13,9 +13,9 @@ int _strlen_recursion(char *s);
 /* Recursion - Exo 03 */
 int factorial(int n);
 /* Recursion - Exo 04 */
-
+int _pow_recursion(int x, int y);
 /* Recursion - Exo 05 */
-
+int _sqrt_recursion(int n);
 /* Recursion - Exo 06 */
 
 
