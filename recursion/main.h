@@ -9,9 +9,9 @@ void _puts_recursion(char *s);
 /* Recursion - Exo 01 */
 void _print_rev_recursion(char *s);
 /* Recursion - Exo 02 */
-
+int _strlen_recursion(char *s);
 /* Recursion - Exo 03 */
-
+int factorial(int n);
 /* Recursion - Exo 04 */
 
 /* Recursion - Exo 05 */
