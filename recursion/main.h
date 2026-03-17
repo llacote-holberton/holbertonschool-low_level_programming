@@ -17,6 +17,6 @@ int _pow_recursion(int x, int y);
 /* Recursion - Exo 05 */
 int _sqrt_recursion(int n);
 /* Recursion - Exo 06 */
-
+int is_prime_number(int n);
 
 #endif
