@@ -31,7 +31,7 @@ int _strlen_recursion(char *s)
 	/* THEN it means we have at least ONE character.    */
 	/* SO we can use a "static" 1 as a base and just the return */
 	/*   of subsequents call to it. */
-	return (1 += _strlen_recursion(s + 1));
+	return (1 + _strlen_recursion(s + 1));
 	/* Logic detailed on a 3 characters string "hi!" */
 	/*
 	 * Call 1: s points to [0], read "h", != 0, skip break.
