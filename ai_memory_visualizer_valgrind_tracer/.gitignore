@@ -1,0 +1,12 @@
+# Exceptionally preventing code and related README to be tracked
+#   as it's "read-only code" retrieved from here
+# https://github.com/hbtn-edu/ai_memory_visualizer_valgrind_tracer/archive/refs/heads/main.zip
+README.md
+programs/
+
+# Also adding the actual zip file of project, as well as
+# my personal "notes" file.
+# HOWEVER we keep the "analysis" folder as it is here
+#   that exercises's "answers files" must be uploaded.
+ai_memory_visualizer_valgrind_tracer-main.zip
+NOTES.md
