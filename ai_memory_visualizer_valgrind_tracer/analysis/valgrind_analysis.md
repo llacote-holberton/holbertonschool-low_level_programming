@@ -30,7 +30,8 @@ This program is designed to demonstrate a certain memory leak by trying to creat
   of a "Person" structure and printing their information BUT only freeing "Bob" when all runs correctly.
 
 # Problems identified by Valgrind
-MEMORY LEAK, of type "leak due to lost ownership".
+MEMORY LEAK, of type "leak due to lost ownership" because of a structure being freed without
+  all its members beign freed beforehand.
 
 ----
 ==23== HEAP SUMMARY:
