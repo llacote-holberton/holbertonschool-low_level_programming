@@ -10,3 +10,6 @@ programs/
 #   that exercises's "answers files" must be uploaded.
 ai_memory_visualizer_valgrind_tracer-main.zip
 NOTES.md
+*.png
+*mermaid*
+*.html
