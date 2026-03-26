@@ -20,7 +20,10 @@ void free_list(list_t *head)
 	if (head == NULL)
 		exit(-1);
 
-	while (head && head->next)
+	/* Causes memory leak because my logic is flawed I don't actually */
+	/* Enter the "last item" because the next is NULL. Obviously. :/  */
+	/* while (head && head->next) */
+	while (head != NULL) /* Might as well go for explicit writing now */
 	{
 		/* KEPT Because printing pointers in this context is hell. Need example. */
 		/* printf("\n\nHEAD pointer is currently %p.\n", (void *)&head);         */
