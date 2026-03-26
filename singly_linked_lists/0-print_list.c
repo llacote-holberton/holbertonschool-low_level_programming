@@ -11,7 +11,6 @@
  *  - If str is NULL, print [0] (nil)
  *  - Exceptionally printf is allowed.
  *  - Expected format is as follows
- *    "
  */
 size_t print_list(const list_t *h)
 {
