@@ -25,7 +25,7 @@ int _putchar(char c);
 /* SiLiLi - Exo 00 (0-print_list.c)   */
 size_t print_list(const list_t *h);
 /* SiLiLi - Exo 01 (1-list_len.c)     */
-
+size_t list_len(const list_t *h);
 /* SiLiLi - Exo 02 (2-add_node.c)     */
 
 /* SiLiLi - Exo 03 (3-add_node_end.c) */
