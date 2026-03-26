@@ -26,7 +26,10 @@ size_t print_list(const list_t *h)
 	/* Each cycle pointer's target changes to next node. */
 	while (n != NULL)
 	{
-		printf("[%u] %s\n", n->len, (n->str) ? n->str : "(nil)");
+		if (n->str)
+			printf("[%u] %s\n", n->len, n->str);
+		else
+			printf("[0] (nil)\n");
 		n = n->next;
 		count++;
 	}
