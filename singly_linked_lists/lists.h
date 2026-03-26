@@ -1,6 +1,8 @@
 #ifndef LISTS_H
 #define LISTS_H
 
+#include <stddef.h> /* Required for 'size_t' var type */
+
 /* Externally provided structure */
 /**
  * struct list_s - singly linked list
@@ -21,7 +23,7 @@ typedef struct list_s
 int _putchar(char c);
 
 /* SiLiLi - Exo 00 (0-print_list.c)   */
-
+size_t print_list(const list_t *h);
 /* SiLiLi - Exo 01 (1-list_len.c)     */
 
 /* SiLiLi - Exo 02 (2-add_node.c)     */
