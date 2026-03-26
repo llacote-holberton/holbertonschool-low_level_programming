@@ -17,9 +17,6 @@ void free_list(list_t *head)
 	/* We just need a "temporary pointer" I suspect.  */
 	list_t *current;
 
-	if (head == NULL)
-		exit(-1);
-
 	/* Causes memory leak because my logic is flawed I don't actually */
 	/* Enter the "last item" because the next is NULL. Obviously. :/  */
 	/* while (head && head->next) */
