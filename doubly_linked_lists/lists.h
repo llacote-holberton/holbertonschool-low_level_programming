@@ -33,7 +33,7 @@ void free_dlistint(dlistint_t *head);
 /* DoLiLi - Exo 05 (5-get_dnodeint.c)    */
 dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index);
 /* DoLiLi - Exo 06 (6-sum_dlistint.c)    */
-
+int sum_dlistint(dlistint_t *head);
 /* DoLiLi - Exo 07 (7-insert_dnodeint.c)    */
 
 /* DoLiLi - Exo 08 (8-delete_dnodeint.c)    */
