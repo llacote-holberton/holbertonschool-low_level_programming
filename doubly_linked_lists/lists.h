@@ -31,7 +31,7 @@ dlistint_t *add_dnodeint_end(dlistint_t **head, const int n);
 /* DoLiLi - Exo 04 (4-free_dlistint.c)    */
 void free_dlistint(dlistint_t *head);
 /* DoLiLi - Exo 05 (5-get_dnodeint.c)    */
-
+dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index);
 /* DoLiLi - Exo 06 (6-sum_dlistint.c)    */
 
 /* DoLiLi - Exo 07 (7-insert_dnodeint.c)    */
