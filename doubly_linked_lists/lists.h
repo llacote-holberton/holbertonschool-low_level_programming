@@ -23,7 +23,7 @@ typedef struct dlistint_s
 /* DoLiLi - Exo 00 (0-print_dlistint.c)   */
 size_t print_dlistint(const dlistint_t *h);
 /* DoLiLi - Exo 01 (1-dlistint_len.c)     */
-
+size_t dlistint_len(const dlistint_t *h);
 /* DoLiLi - Exo 02 (2-add_dnodeint.c)     */
 
 /* DoLiLi - Exo 03 (3-add_dnodeint_end.c) */
