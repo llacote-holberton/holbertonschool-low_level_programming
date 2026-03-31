@@ -1,6 +1,8 @@
 #ifndef LISTS_H
 #define LISTS_H
 
+#include <stddef.h> /* Required for 'size_t' var type */
+
 /* Externally provided structure */
 /**
  * struct dlistint_s - doubly linked list
@@ -19,7 +21,7 @@ typedef struct dlistint_s
 } dlistint_t;
 
 /* DoLiLi - Exo 00 (0-print_dlistint.c)   */
-
+size_t print_dlistint(const dlistint_t *h);
 /* DoLiLi - Exo 01 (1-dlistint_len.c)     */
 
 /* DoLiLi - Exo 02 (2-add_dnodeint.c)     */
