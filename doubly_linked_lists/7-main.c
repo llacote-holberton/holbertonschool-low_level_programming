@@ -25,6 +25,13 @@ int main(void)
 	printf("-----------------\n");
 	insert_dnodeint_at_index(&head, 5, 4096);
 	print_dlistint(head);
+	printf("-----------------\n");
+	printf("Trying to insert far beyond list_\n");
+	insert_dnodeint_at_index(&head, 55, 777);
+	print_dlistint(head);
+	printf("Trying to insert exactly at tail\n");
+	insert_dnodeint_at_index(&head, 9, 777);
+	print_dlistint(head);
 	free_dlistint(head);
 	head = NULL;
 	return (EXIT_SUCCESS);
