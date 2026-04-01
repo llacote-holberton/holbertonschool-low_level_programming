@@ -20,8 +20,21 @@ hash_table_t *hash_table_create(unsigned long int size)
 
 	if (size == 0)
 		return (NULL);
-	new_ht = calloc(size, sizeof(hash_table_t));
+	/* @warning plug the brain and read struct file properly... */
+	/* new_ht = calloc(size, sizeof(hash_table_t)); */
 	/* Logically no need to make "if" since we return just after. */
 	/* If alloc failed then new_ht will be NULL all the same. */
+	new_ht = malloc(sizeof(hash_table_t));
+	if (!new_ht)
+		return (NULL);
+	/* Affect raw data now while we sure it exists */
+	new_ht->size = size;
+	/* @warning table of POINTERS don't forget the * */
+	new_ht->array = calloc(size, sizeof(hash_node_t *));
+	if (new_ht->array == NULL)
+	{
+		free(new_ht);
+		new_ht = NULL;
+	}
 	return (new_ht);
 }
