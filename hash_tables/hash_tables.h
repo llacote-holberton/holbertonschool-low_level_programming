@@ -31,7 +31,7 @@ typedef struct hash_table_s
 } hash_table_t;
 
 /* HashTables - Exo 00 */
-
+hash_table_t *hash_table_create(unsigned long int size);
 /* HashTables - Exo 01 */
 
 /* HashTables - Exo 02 */
