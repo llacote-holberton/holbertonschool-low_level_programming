@@ -2,8 +2,6 @@
 #include <string.h>         /* Required for strdup */
 #include "hash_tables.h"
 
-#include <stdio.h>   /*@temporary */
-
 /**
  * find_bucket_tail - Finds the first empty slot in a bucket.
  * @bucket_list: head of a list of nodes stored inside a given bucket.
