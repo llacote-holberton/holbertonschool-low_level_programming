@@ -11,6 +11,7 @@
 int main(void)
 {
 	hash_table_t *ht;
+
 	printf("=== START of Exo 03 ===\n");
 
 	printf("= Creating hash_table =\n");
@@ -24,6 +25,6 @@ int main(void)
 	hash_table_set(ht, "mentioner", "Second coming");
 
 	printf("=== END of Exo 03 ===\n");
-	
+
 	return (EXIT_SUCCESS);
 }

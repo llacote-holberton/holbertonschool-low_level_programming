@@ -60,8 +60,8 @@ hash_node_t *find_matching(hash_node_t *bucket_list, const char *key)
 hash_node_t *create_hash_node(const char *key, const char *value)
 {
 	hash_node_t *new_node = NULL;
-	char *copy_of_value;
-	char *copy_of_key;
+	char *copy_of_value = NULL;
+	char *copy_of_key = NULL;
 
 	/* @note: key == "" doesn't work because compares addresses */
 	if (key == NULL || key[0] == '\0' || value == NULL)
@@ -117,6 +117,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	hash_node_t *new_node = NULL;
 	unsigned int bucket_index;
 	hash_node_t *existing_node = NULL;
+	char *new_value = NULL;
 
 	/* @note: key == "" doesn't work because compares addresses */
 	if (ht == NULL || key == NULL || key[0] == '\0' || value == NULL)
@@ -127,8 +128,16 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	existing_node = find_matching(ht->array[bucket_index], key);
 	if (existing_node)
 	{
-		existing_node->value = strdup(value);
-		return ((existing_node->value) ? success : failure);
+		/* @warning direct affectation of copy creates leak for preexisting value */
+		new_value = strdup(existing_node->value);
+		if (new_value)
+		{
+			free(existing_node->value);
+			existing_node->value = new_value;
+			return (success);
+		}
+		else
+			return (failure);
 	}
 	else
 	{
@@ -136,9 +145,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		new_node = create_hash_node(key, value);
 		if (!new_node)
 			return (failure);
-		/* Check whether we should "update list head" or if bucket empty. */
-		/* Actually useless. If no existing node will just affect null.   */
-		/* if (ht->array[bucket_index]) */
+
 		new_node->next = ht->array[bucket_index];
 		ht->array[bucket_index] = new_node;
 		return (success);
