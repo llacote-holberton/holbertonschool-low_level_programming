@@ -51,7 +51,8 @@ int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 	if (!s || !data) /* No use trying to set data if no data given */
 		return (0);
 
-	if (data_len == 0) {
+	if (data_len == 0)
+	{
 		free(s->data);
 		s->data = NULL;
 		s->data_len = 0;
@@ -59,15 +60,23 @@ int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 	}
 
 	tmp = (unsigned char *)realloc(s->data, data_len);
-	s->data = tmp;
-
-	if (!s->data) {
-		s->data_len = 0;
+	/*s->data = tmp;*/ /* Should not allocate directly! */
+	if (!tmp) /* Realloc returned NULL bubble up failure. */
 		return (0);
-	}
+	s->data = tmp; /* Reaffects pointer to new/stretched area. */
+	/* BUT data itself is NOT YET updated. */
 
-
+/*
+ * Seems useless and potentially risky to me
+ * if (!s->data) {
+ * s->data_len = 0;
+ * return (0);
+ * }
+ */
+	/* Copy in X area, from Source, N bytes. */
+	/* Here because we copy strings bytes = elements. */
 	memcpy(s->data, data, data_len);
+	/* Since it was given we can just affect instead of compute. */
 	s->data_len = data_len;
 	return (1);
 }
