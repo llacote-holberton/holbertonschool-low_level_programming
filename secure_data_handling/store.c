@@ -47,7 +47,7 @@ int store_add(store_t *st, session_t *s)
 	/* First attempt to use goto which seems pertinent here */
 	/*   to avoid duplicating frees and returns. */
 	fail:
-		free(s);
+		session_destroy(s); /* free(s) insufficient -> this avoids dups. */
 		return (0);
 }
 
