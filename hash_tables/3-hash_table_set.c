@@ -24,6 +24,35 @@ hash_node_t *find_bucket_tail(hash_node_t *bucket_list)
 }
 
 /**
+ * find_matching - Returns existing node with matching key or NULL.
+ * @bucket_list: head of a list of nodes stored inside a given bucket.
+ * @key: business identifier of the content.
+ *
+ * Return: pointer to a node with matching key if it exists, or NULL.
+ */
+hash_node_t *find_matching(hash_node_t *bucket_list, const char *key)
+{
+	hash_node_t *current = bucket_list;
+
+	/* Guard clause for no node or unexploitable key. */
+	if (!current || !key || key[0] == '\0')
+		return (NULL);
+
+	/* Comparing each node at a time while crossing list. */
+	while (current)
+	{
+		/* "Breaks and return" as soon as found match. */
+		if (strcmp(current->key, key) == 0)
+			return (current);
+		/* Or go to the next item in list and loop over. */
+		current = current->next;
+	}
+
+	/* If we reached this it means no matching node found in loop. */
+	return (NULL);
+}
+
+/**
  * create_hash_node - Creates a new node to insert.
  * @key: string used to generate hash value
  * @value: string to affect as node member.
@@ -84,28 +113,36 @@ hash_node_t *create_hash_node(const char *key, const char *value)
  */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	unsigned int successful_insertion = 0;
+	const unsigned int success = 1;
+	const unsigned int failure = 0;
+
 	hash_node_t *new_node = NULL;
 	unsigned int bucket_index;
-	hash_node_t *bucket_tail = NULL;
+	hash_node_t *existing_node = NULL;
 
 	/* @note: key == "" doesn't work because compares addresses */
 	if (ht == NULL || key == NULL || key[0] == '\0' || value == NULL)
-		return (successful_insertion);
+		return (failure);
 
-	/* First ensure we have enough memory for everything. */
-	new_node = create_hash_node(key, value);
-	if (!new_node)
-		return (successful_insertion);
-	printf("In SET: address of new_node is %p.\n", (void *)new_node);
-	/* Now try to insert. */
+	/* FIRST try and find existing node to update case arising. */
 	bucket_index = hash_djb2((const unsigned char *)key) % ht->size;
-	bucket_tail = find_bucket_tail(ht->array[bucket_index]);
-	if (bucket_tail)
-		bucket_tail->next = new_node;
+	existing_node = find_matching(ht->array[bucket_index], key);
+	if (existing_node)
+	{
+		existing_node->value = strdup(value);
+		return ((existing_node->value) ? success : failure);
+	}
 	else
+	{
+		/* Ensure enough memory to create+affect before inserting at bucket start. */
+		new_node = create_hash_node(key, value);
+		if (!new_node)
+			return (failure);
+		/* Check whether we should "update list head" or if bucket empty. */
+		/* Actually useless. If no existing node will just affect null.   */
+		/* if (ht->array[bucket_index]) */
+		new_node->next = ht->array[bucket_index];
 		ht->array[bucket_index] = new_node;
-	successful_insertion = 1;
-
-	return (successful_insertion);
+		return (success);
+	}
 }
