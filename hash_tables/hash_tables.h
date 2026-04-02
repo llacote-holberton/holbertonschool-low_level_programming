@@ -37,7 +37,7 @@ unsigned long int hash_djb2(const unsigned char *str);
 /* HashTables - Exo 02 */
 unsigned long int key_index(const unsigned char *key, unsigned long int size);
 /* HashTables - Exo 03 */
-
+int hash_table_set(hash_table_t *ht, const char *key, const char *value);
 /* HashTables - Exo 04 */
 
 /* HashTables - Exo 05 */
