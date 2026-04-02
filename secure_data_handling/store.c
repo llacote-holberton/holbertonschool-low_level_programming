@@ -77,6 +77,7 @@ int store_delete(store_t *st, const char *id, session_t **out)
 	prev = NULL;
 	cur = st->head;
 
+	/* Trys to find session which id matches the one requested for deletion */
 	while (cur) {
 		if (cur->sess && cur->sess->id && strcmp(cur->sess->id, id) == 0) {
 			if (prev)
@@ -84,18 +85,33 @@ int store_delete(store_t *st, const char *id, session_t **out)
 			else
 				st->head = cur->next;
 
-			if (out)
-				*out = cur->sess;
-
-			session_destroy(cur->sess);
-			free(cur);
-			return 1;
+			/* 
+			 * if (out)
+			 * *out = cur->sess;
+			 * session_destroy(cur->sess);
+			 * free(cur);
+			 * return 1;
+			 */
+			if (out) /* Caller wants session to be kept in memory so just remove from store. */
+			{
+				/* So we must affect the session to it and NOT destroy it. */
+				/* Only its affectation in storage. */
+				*out = cur->sess; /* Warning DO NOT FORGET to dereference! */
+				free(cur);
+				return (1);
+			}
+			else /* out NULL means caller does not need session to be given back. */
+			{
+				session_destroy(cur->sess);
+				free(cur);
+				return (1);
+			}
 		}
 		prev = cur;
 		cur = cur->next;
 	}
 
-	return 0;
+	return (0);
 }
 
 void store_destroy(store_t *st)
