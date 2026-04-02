@@ -39,7 +39,7 @@ unsigned long int key_index(const unsigned char *key, unsigned long int size);
 /* HashTables - Exo 03 */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value);
 /* HashTables - Exo 04 */
-
+char *hash_table_get(const hash_table_t *ht, const char *key);
 /* HashTables - Exo 05 */
 
 /* HashTables - Exo 06 */
