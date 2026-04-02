@@ -22,24 +22,33 @@ int store_add(store_t *st, session_t *s)
 {
 	node_t *n, *cur;
 
+	/* Cannot pursue, don't have all required infos. */
 	if (!st || !s || !s->id)
-		return 0;
+		goto fail;
 
+	/* Grab first session from store metadata. */
 	cur = st->head;
+	/* First check that no existing session matches the creation request. */
 	while (cur) {
 		if (cur->sess && cur->sess->id && strcmp(cur->sess->id, s->id) == 0)
-			return 0;
+			goto fail;
 		cur = cur->next;
 	}
 
+	/*Reached here means no existing, allocate, affect and re-link. */
 	n = node_create(s);
 	if (!n) {
-		return 0;
+		goto fail;
 	}
-
 	n->next = st->head;
 	st->head = n;
-	return 1;
+
+	return (1);
+	/* First attempt to use goto which seems pertinent here */
+	/*   to avoid duplicating frees and returns. */
+	fail:
+		free(s);
+		return (0);
 }
 
 session_t *store_get(store_t *st, const char *id)
