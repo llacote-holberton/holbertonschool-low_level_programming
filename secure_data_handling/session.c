@@ -2,45 +2,60 @@
 #include <string.h>
 #include "session.h"
 
-session_t *session_create(const char *id, unsigned int uid, const unsigned char *data, size_t data_len)
+session_t *session_create(const char *id, unsigned int uid,
+													const unsigned char *data, size_t data_len)
 {
 	session_t *s;
 
 	s = (session_t *)malloc(sizeof(*s));
 	if (!s)
-		return NULL;
+		return (NULL);
 
-	s->id = (char *)id;
+	/* s->id = (char *)id; *//* Must be duplicated to avoid ownership ambiguity */
+	s->id = strdup(id);
+	if (!s->id)
+	{
+		free(s);
+		return (NULL);
+	}
 
 	s->uid = uid;
 
-	if (data_len > 0) {
+	if (data_len > 0)
+	{
 		s->data = (unsigned char *)malloc(data_len);
-		if (!s->data) {
-			return NULL;
+		if (!s->data)
+		{
+			/* Must free every other "part of struct" initialized so far */
+			/*   since cannot complete. */
+			free(s->id);
+			free(s);
+			return (NULL);
 		}
 		memcpy(s->data, data, data_len);
 		s->data_len = data_len;
-	} else {
+	}
+	else
+	{
 		s->data = NULL;
 		s->data_len = 0;
 	}
 
-	return s;
+	return (s);
 }
 
 int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 {
 	unsigned char *tmp;
 
-	if (!s)
-		return 0;
+	if (!s || !data) /* No use trying to set data if no data given */
+		return (0);
 
 	if (data_len == 0) {
 		free(s->data);
 		s->data = NULL;
 		s->data_len = 0;
-		return 1;
+		return (1);
 	}
 
 	tmp = (unsigned char *)realloc(s->data, data_len);
@@ -48,12 +63,13 @@ int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 
 	if (!s->data) {
 		s->data_len = 0;
-		return 0;
+		return (0);
 	}
+
 
 	memcpy(s->data, data, data_len);
 	s->data_len = data_len;
-	return 1;
+	return (1);
 }
 
 void session_destroy(session_t *s)
@@ -62,7 +78,6 @@ void session_destroy(session_t *s)
 		return;
 
 	free(s->id);
-
 	free(s->data);
 	free(s);
 }
