@@ -49,9 +49,7 @@ int store_add(store_t *st, session_t *s)
 
 	/* Cannot pursue, don't have all required infos. */
 	if (!st || !s || !s->id)
-	{
 		return (0);
-	}
 
 	/* Grab first session from store metadata. */
 	cur = st->head;
@@ -73,9 +71,9 @@ int store_add(store_t *st, session_t *s)
 		session_destroy(s); /* free(s) insufficient -> this avoids dups. */
 		return (0);
 	}
+
 	n->next = st->head;
 	st->head = n;
-
 	return (1);
 }
 
@@ -131,10 +129,9 @@ int store_delete(store_t *st, const char *id, session_t **out)
 				st->head = cur->next;
 			if (out) /* Caller wants to keep session in memory */
 			{
-				/* So we must affect the session to it and NOT destroy it. */
-				/* Only its affectation in storage. */
-				*out = cur->sess; /* Warning DO NOT FORGET to dereference! */
-				free(cur);
+
+				*out = cur->sess;
+				/* free(cur); */ /* Commenting because maybe I misunderstood intent. */
 				return (1);
 			}
 			else /* out NULL means caller does not need session to be given back. */
