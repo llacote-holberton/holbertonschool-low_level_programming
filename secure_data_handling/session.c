@@ -69,13 +69,11 @@ int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 	s->data = tmp; /* Reaffects pointer to new/stretched area. */
 	/* BUT data itself is NOT YET updated. */
 
-/*
- * Seems useless and potentially risky to me
- * if (!s->data) {
- * s->data_len = 0;
- * return (0);
- * }
- */
+	if (!s->data) {
+		s->data_len = 0;
+		return (0);
+	}
+
 	/* Copy in X area, from Source, N bytes. */
 	/* Here because we copy strings bytes = elements. */
 	memcpy(s->data, data, data_len);
