@@ -6,11 +6,6 @@ void store_init(store_t *st)
 {
 	if (st)
 	{
-		/* INIT means we want to start from fresh so IF there are still sessions */
-		/*   we need to destroy them. Security required because technically */
-		/* this function could be used by a caller without a store_destroy before. */
-		if (st->head)
-			store_destroy(st);
 		st->head = NULL;
 	}
 }
