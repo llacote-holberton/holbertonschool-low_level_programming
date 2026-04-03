@@ -2,12 +2,6 @@
 #include <string.h>
 #include "store.h"
 
-
-/**
- * store_init - (re)Initializes a store.
- * @st: store to (re)initialize.
- * Return: pointer to created node.
- */
 void store_init(store_t *st)
 {
 	if (st)
@@ -21,11 +15,6 @@ void store_init(store_t *st)
 	}
 }
 
-/**
- * node_create - Creates a node to store a session inside a bucket.
- * @s: new session data.
- * Return: pointer to created node.
- */
 static node_t *node_create(session_t *s)
 {
 	node_t *n = (node_t *)malloc(sizeof(*n));
@@ -37,12 +26,6 @@ static node_t *node_create(session_t *s)
 	return (n);
 }
 
-/**
- * store_add - Gets the first session matching given id.
- * @st: store to insert new session into.
- * @s: new session data
- * Return: pointer to found session.
- */
 int store_add(store_t *st, session_t *s)
 {
 	node_t *n, *cur;
@@ -77,12 +60,6 @@ int store_add(store_t *st, session_t *s)
 	return (1);
 }
 
-/**
- * store_get - Gets the first session matching given id.
- * @st: store to get a session from.
- * @id: key to search by
- * Return: pointer to found session.
- */
 session_t *store_get(store_t *st, const char *id)
 {
 	node_t *cur;
@@ -100,14 +77,6 @@ session_t *store_get(store_t *st, const char *id)
 	return (NULL);
 }
 
-/**
- * store_delete - Delete one session searched by id,
- *   optionally giving it back to caller instead.
- * @st: store to search session to delete into.
- * @id: key to search by
- * @out: if given by caller will hold found session.
- * Return: 1 if success, 0 if failure.
- */
 int store_delete(store_t *st, const char *id, session_t **out)
 {
 	node_t *cur, *prev;
@@ -141,10 +110,6 @@ int store_delete(store_t *st, const char *id, session_t **out)
 	return (0);
 }
 
-/**
- * store_destroy - Fully delete and frees store content.
- * @st: store to empty entirely.
- */
 void store_destroy(store_t *st)
 {
 	node_t *cur, *next;
