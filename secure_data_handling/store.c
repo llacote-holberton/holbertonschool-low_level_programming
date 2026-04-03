@@ -127,9 +127,9 @@ int store_delete(store_t *st, const char *id, session_t **out)
 				prev->next = cur->next;
 			else
 				st->head = cur->next;
-			if (out) /* Caller wants to keep session in memory */
+			if (out)
 				*out = cur->sess;
-			else /* out NULL means caller does not need session to be given back. */
+			else
 				session_destroy(cur->sess);
 			free(cur);
 			return (1);
@@ -162,9 +162,8 @@ void store_destroy(store_t *st)
 		next = cur->next;
 		/* Once further node for next cycle is "secured" we clean as usual. */
 		cur->next = NULL;
-		/* No need to pre-check sess since session_destoy does it itself. */
-		session_destroy(cur->sess);
-
+		if (cur->sess) /* Actually needed to avoid risk of null dereferencing */
+			session_destroy(cur->sess);
 		free(cur);
 
 		cur = next;
