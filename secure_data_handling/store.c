@@ -49,7 +49,9 @@ int store_add(store_t *st, session_t *s)
 
 	/* Cannot pursue, don't have all required infos. */
 	if (!st || !s || !s->id)
-		goto fail;
+	{
+		return (0);
+	}
 
 	/* Grab first session from store metadata. */
 	cur = st->head;
@@ -57,23 +59,24 @@ int store_add(store_t *st, session_t *s)
 	while (cur)
 	{
 		if (cur->sess && cur->sess->id && strcmp(cur->sess->id, s->id) == 0)
-			goto fail;
+		{
+			session_destroy(s); /* free(s) insufficient -> this avoids dups. */
+			return (0);
+		}
 		cur = cur->next;
 	}
 
 	/*Reached here means no existing, allocate, affect and re-link. */
 	n = node_create(s);
 	if (!n)
-		goto fail;
+	{
+		session_destroy(s); /* free(s) insufficient -> this avoids dups. */
+		return (0);
+	}
 	n->next = st->head;
 	st->head = n;
 
 	return (1);
-	/* First attempt to use goto which seems pertinent here */
-	/*   to avoid duplicating frees and returns. */
-fail:
-	session_destroy(s); /* free(s) insufficient -> this avoids dups. */
-	return (0);
 }
 
 /**
