@@ -48,8 +48,11 @@ int session_set_data(session_t *s, const unsigned char *data, size_t data_len)
 {
 	unsigned char *tmp;
 
-	if (!s || !data) /* No use trying to set data if no data given */
+	if (!s) /* No use trying to set data if no data given */
 		return (0);
+	if (!data && data_len > 0)
+		return (0);
+	
 
 	if (data_len == 0)
 	{
