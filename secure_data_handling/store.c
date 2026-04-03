@@ -132,7 +132,6 @@ int store_delete(store_t *st, const char *id, session_t **out)
 				/* So we must affect the session to it and NOT destroy it. */
 				/* Only its affectation in storage. */
 				*out = cur->sess; /* Warning DO NOT FORGET to dereference! */
-				free(cur);
 				return (1);
 			}
 			else /* out NULL means caller does not need session to be given back. */
