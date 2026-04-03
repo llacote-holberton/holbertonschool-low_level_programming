@@ -128,18 +128,11 @@ int store_delete(store_t *st, const char *id, session_t **out)
 			else
 				st->head = cur->next;
 			if (out) /* Caller wants to keep session in memory */
-			{
-
 				*out = cur->sess;
-				/* free(cur); */ /* Commenting because maybe I misunderstood intent. */
-				return (1);
-			}
 			else /* out NULL means caller does not need session to be given back. */
-			{
 				session_destroy(cur->sess);
-				free(cur);
-				return (1);
-			}
+			free(cur);
+			return (1);
 		}
 		prev = cur;
 		cur = cur->next;
