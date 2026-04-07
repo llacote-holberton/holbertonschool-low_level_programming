@@ -8,7 +8,7 @@ int _putchar(char c);
 /* File_IO - Exo 00 - 0-read_textfile.c */
 ssize_t read_textfile(const char *filename, size_t letters);
 /* File_IO - Exo 01 - 1-create_file.c */
-
+int create_file(const char *filename, char *text_content);
 /* File_IO - Exo 02 - 2-append_text_to_file.c */
 
 /* File_IO - Exo 03 - 3-cp.c */
