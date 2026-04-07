@@ -17,8 +17,8 @@
  */
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	const int read_failure = 0;
-	ssize_t readonly_filedescriptor;
+	const int READ_FAILURE = 0;
+	int readonly_filedescriptor;
 	/* @warning WRONG!! ssize_t is 8 bytes!! ssize_t *read_buffer = NULL; */
 	char *read_buffer = NULL;
 	ssize_t to_print;
@@ -26,11 +26,11 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	/* Classic guard clauses. */
 	if (!filename || !letters)
-		return (read_failure);
+		return (READ_FAILURE);
 
 	readonly_filedescriptor = open(filename, O_RDONLY);
 	if (readonly_filedescriptor == -1)
-		return (read_failure);
+		return (READ_FAILURE);
 
 	/*@note: malloc tried AFTER opening because I feel it is useful to caller */
 	/*  to "first" know that the file is not even available for reading. */
@@ -38,7 +38,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	if (!read_buffer)
 	{
 		close(readonly_filedescriptor);
-		return (read_failure);
+		return (READ_FAILURE);
 	}
 
 	to_print = read(readonly_filedescriptor, read_buffer, letters);
@@ -46,7 +46,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 		/* @warning use macros to ensure program respects OS config. */
 		printed = write(STDOUT_FILENO, read_buffer, to_print);
 	else
-		printed = read_failure;
+		printed = READ_FAILURE;
 
 	close(readonly_filedescriptor);
 	free(read_buffer);
