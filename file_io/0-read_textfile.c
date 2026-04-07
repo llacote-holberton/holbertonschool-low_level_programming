@@ -3,8 +3,6 @@
 #include <unistd.h> /* Required for read syscall function. */
 #include "main.h"   /* Required for custom putchar function. */
 
-#include <stdio.h> /* @temporary */
-
 /**
  * read_textfile - Lit un fichier en entrée
  *
@@ -21,16 +19,14 @@ ssize_t read_textfile(const char *filename, size_t letters)
 {
 	const int read_failure = 0;
 	ssize_t readonly_filedescriptor;
-	/*  No other choice than dynamic alloc as cannot know size in advance. */
-	/* ssize_t read_buffer[]; -> CANNOT WORK */
-	ssize_t *read_buffer = NULL;
+	/* @warning WRONG!! ssize_t is 8 bytes!! ssize_t *read_buffer = NULL; */
+	char *read_buffer = NULL;
 	ssize_t to_print;
 	ssize_t printed;
 
-	/* Let's start with the classics. */
+	/* Classic guard clauses. */
 	if (!filename || !letters)
 		return (read_failure);
-	printf("Attempting to open the file %s.\n", filename);
 
 	readonly_filedescriptor = open(filename, O_RDONLY);
 	if (readonly_filedescriptor == -1)
@@ -47,9 +43,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	to_print = read(readonly_filedescriptor, read_buffer, letters);
 	if (to_print != -1)
-	{
 		printed = write(1, read_buffer, to_print);
-	}
 	else
 		printed = read_failure;
 
@@ -57,8 +51,7 @@ ssize_t read_textfile(const char *filename, size_t letters)
 	free(read_buffer);
 	read_buffer = NULL;
 
-	return (printed);
-
+	return ((printed == -1) ? 0 : printed);
 }
 
 
