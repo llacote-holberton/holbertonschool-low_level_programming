@@ -43,7 +43,8 @@ ssize_t read_textfile(const char *filename, size_t letters)
 
 	to_print = read(readonly_filedescriptor, read_buffer, letters);
 	if (to_print != -1)
-		printed = write(1, read_buffer, to_print);
+		/* @warning use macros to ensure program respects OS config. */
+		printed = write(STDOUT_FILENO, read_buffer, to_print);
 	else
 		printed = read_failure;
 
