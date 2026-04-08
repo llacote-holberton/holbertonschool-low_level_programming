@@ -27,7 +27,8 @@ int exit_in_error(int error_code, char *tmpl_var, int src_fd, int dest_fd)
 	const char IVD_DEST__CODE = 99;
 	const char *IVD_DEST__TMPL = "Error: Can't write to %s\n";
 	const char FDC_FAIL__CODE = 100;
-	const char *FDC_FAIL__TMPL = "Error: Can't close fd %s\n";
+	const char *FDC_FAIL__TMPL = "Error: Can't close fd %d\n";
+	int fd_closed; /* @warning do NOT forget to check it closed correctly! */
 
 	switch (error_code)
 	{
@@ -47,10 +48,12 @@ int exit_in_error(int error_code, char *tmpl_var, int src_fd, int dest_fd)
 		default:
 			break;
 	}
-	if (src_fd != -1)
-		close(src_fd);
-	if (dest_fd != -1)
-		close(dest_fd);
+	fd_closed = (src_fd != -1) ? close(src_fd) : 0;
+	if (fd_closed == -1)
+		dprintf(FDC_FAIL__CODE, FDC_FAIL__TMPL, src_fd);
+	fd_closed = (dest_fd != -1) ? close(dest_fd) : 0;
+	if (fd_closed == -1)
+		dprintf(FDC_FAIL__CODE, FDC_FAIL__TMPL, dest_fd);
 	if (error_code >= 97 && error_code <= 100)
 		exit(error_code);
 	else
@@ -146,13 +149,13 @@ int main(int ac, char **av)
 	{
 		chars_to_write = read(reader_handle, cp_buffer, 1024);
 			if (chars_to_write < 0)
-				exit_in_error(97, av[1], reader_handle, writer_handle);
+				exit_in_error(98, av[1], reader_handle, writer_handle);
 			else if (chars_to_write == 0)
 				break;
 
 			chars_written = write(writer_handle, cp_buffer, chars_to_write);
 			if (chars_written == -1)
-				exit_in_error(97, av[1], reader_handle, writer_handle);
+				exit_in_error(99, av[1], reader_handle, writer_handle);
 			total_count += chars_written;
 	}
 
