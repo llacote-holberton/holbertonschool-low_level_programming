@@ -7,7 +7,9 @@
 /**
  * exit_in_error - Bubbles up error on standard error fd.
  * @error_code: valid code (caller must know them, current limitation).
- * @tmpl_var: string to interpolate in template (caller ).
+ * @tmpl_var: string to interpolate in template (same remark as above).
+ * @fd_var: int to interpolate in template
+ *   (no better way than extra argument with exercise constraints :/)
  * @src_fd: file descriptor to close
  * @dest_fd: file descriptor to close
  * Return: -1 if unknown error code, otherwise the error code.
@@ -17,47 +19,32 @@
  *  And this would be a perfect use case for a combo
  *    "structure + correspondance table" to be honest.
  */
-int exit_in_error(int error_code, char *tmpl_var, int src_fd, int dest_fd)
+void exit_in_error(int error_code, char *tmpl_var,
+									 int fd_var, int src_fd, int dest_fd)
 {
-	/* IVD == INVALID */
-	const int IVD_ARGS__CODE = 97;
-	const char *IVD_ARGS__TMPL = "Usage: cp file_from file_to\n";
-	const int IVD_SRC__CODE = 98;
-	const char *IVD_SRC__TMPL = "Error: Can't read from file %s\n";
-	const char IVD_DEST__CODE = 99;
-	const char *IVD_DEST__TMPL = "Error: Can't write to %s\n";
-	const char FDC_FAIL__CODE = 100;
-	const char *FDC_FAIL__TMPL = "Error: Can't close fd %d\n";
 	int fd_closed; /* @warning do NOT forget to check it closed correctly! */
 
-	switch (error_code)
-	{
-		/* case IVD_ARGS__CODE doesn't work :/ */
-		case 97:
-			dprintf(IVD_ARGS__CODE, IVD_ARGS__TMPL, (tmpl_var) ? tmpl_var : "(nil)");
-			break;
-		case 98:
-			dprintf(IVD_SRC__CODE, IVD_SRC__TMPL, (tmpl_var) ? tmpl_var : "(nil)");
-			break;
-		case 99:
-			dprintf(IVD_DEST__CODE, IVD_DEST__TMPL, (tmpl_var) ? tmpl_var : "(nil)");
-			break;
-		case 100:
-			dprintf(FDC_FAIL__CODE, FDC_FAIL__TMPL, (tmpl_var) ? tmpl_var : "(nil)");
-			break;
-		default:
-			break;
-	}
+	/* Replaced switch with if/else chain to spare lines. */
+	/* Removed the constants since not really that useful. */
+	if (!tmpl_var)
+		tmpl_var = "(nil)";
+	if (error_code == 97)
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+	else if (error_code == 98)
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", tmpl_var);
+	else if (error_code == 99)
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", tmpl_var);
+	else if (error_code == 100)
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_var);
+
 	fd_closed = (src_fd != -1) ? close(src_fd) : 0;
 	if (fd_closed == -1)
-		dprintf(FDC_FAIL__CODE, FDC_FAIL__TMPL, src_fd);
+		exit_in_error(100, NULL, src_fd, src_fd, dest_fd);
 	fd_closed = (dest_fd != -1) ? close(dest_fd) : 0;
 	if (fd_closed == -1)
-		dprintf(FDC_FAIL__CODE, FDC_FAIL__TMPL, dest_fd);
+		exit_in_error(100, NULL, dest_fd, src_fd, dest_fd);
 	if (error_code >= 97 && error_code <= 100)
 		exit(error_code);
-	else
-		return (-1);
 }
 
 /**
@@ -72,10 +59,10 @@ int get_source_reader(char *pathname, int src_fd, int dest_fd)
 	int read_source__fd;
 
 	if (!pathname || pathname[0] == '\0')
-		exit_in_error(98, pathname, src_fd, dest_fd);
+		exit_in_error(98, pathname, src_fd, src_fd, dest_fd);
 	read_source__fd = open(pathname, O_RDONLY);
 	if (read_source__fd == -1)
-		exit_in_error(98, pathname, src_fd, dest_fd);
+		exit_in_error(98, pathname, src_fd, src_fd, dest_fd);
 	return (read_source__fd);
 }
 
@@ -90,13 +77,13 @@ int get_dest_writer(char *pathname, int src_fd, int dest_fd)
 {
 	int write_dest__fd;
 	int opening_flags = O_WRONLY | O_TRUNC | O_CREAT;
-	mode_t new_file_perms = 0644;
+	mode_t new_file_perms = 0664;
 
 	if (!pathname || pathname[0] == '\0')
-		exit_in_error(99, pathname, src_fd, dest_fd);
+		exit_in_error(99, pathname, dest_fd, src_fd, dest_fd);
 	write_dest__fd = open(pathname, opening_flags, new_file_perms);
 	if (write_dest__fd == -1)
-		exit_in_error(99, pathname, src_fd, dest_fd);
+		exit_in_error(99, pathname, dest_fd, src_fd, dest_fd);
 	return (write_dest__fd);
 }
 
@@ -137,30 +124,25 @@ int main(int ac, char **av)
 	int chars_written = 0;
 	char cp_buffer[1024]; /* Buffer size is imposed and small so on stack. */
 
-	/* Check we have the right number of arguments (separated by space) */
-	if (ac != 3) /* First is command. We only support single file copy. */
-		exit_in_error(97, NULL, reader_handle, writer_handle);
-	/* Check that source file is readable (callee exits if failure). */
-	reader_handle = get_source_reader(av[1], reader_handle, writer_handle);
-	/* Check that dest file is writable (callee exits if failure). */
-	writer_handle = get_dest_writer(av[2], reader_handle, writer_handle);
-	/* @warning problem of this architecture is we cannot close opened fd!! */
+	if (ac != 3)
+		exit_in_error(97, NULL, -1, -1, -1);
+
+	reader_handle = get_source_reader(av[1], -1, -1);
+	writer_handle = get_dest_writer(av[2], reader_handle, -1);
 	while (chars_to_write > 0)
 	{
 		chars_to_write = read(reader_handle, cp_buffer, 1024);
 			if (chars_to_write < 0)
-				exit_in_error(98, av[1], reader_handle, writer_handle);
+				exit_in_error(98, av[1], reader_handle, reader_handle, writer_handle);
 			else if (chars_to_write == 0)
 				break;
-
 			chars_written = write(writer_handle, cp_buffer, chars_to_write);
 			if (chars_written == -1)
-				exit_in_error(99, av[1], reader_handle, writer_handle);
+				exit_in_error(99, av[2], writer_handle, reader_handle, writer_handle);
 			total_count += chars_written;
 	}
-
-	if (chars_to_write < 0)
-		return (99);
+	if (close(reader_handle) == -1)
+		exit_in_error(100, NULL, reader_handle, reader_handle, writer_handle);
 	return (0);
 }
 
